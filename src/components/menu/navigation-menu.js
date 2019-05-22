@@ -3,6 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Drawer from '@material-ui/core/Drawer'
 import Input from '@material-ui/core/Input'
+import ClippedNavigationList from './clipped-navigation-list'
 
 
 class NavigationMenu extends React.Component {
@@ -13,11 +14,12 @@ class NavigationMenu extends React.Component {
             variant="permanent"
             anchor="left"
             classes={{ root: "root-drawer", paper: "paper" }}>
-                <Padder/>
-                <CustomInputBase
-                    color="primary"
-                    placeholder="Search…"
-                />
+                <UnderNav/>
+                    <CustomInputBase
+                        color="primary"
+                        placeholder="Search…"
+                    />
+                    <ClippedNavigationList navItems = { ["Test", "Test2"] }/>
             </CustomDrawer>
     )
   }
@@ -38,9 +40,9 @@ const CustomDrawer = styled(Drawer)`
 const CustomInputBase = styled(Input)`
     border-radius: 10%;
 `
-const Padder = styled.div`
-    height: 64;
-    display: block;
+
+const UnderNav = styled.div`
+    min-height: 58px;
 `
 
 export default NavigationMenu
