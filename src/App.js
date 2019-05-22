@@ -4,6 +4,8 @@ import { ContextProvider } from './context'
 import WithThemes from './theme'
 import NavigationBar from './components/menu/navigation-bar'
 import NavigationMenu  from './components/menu/navigation-menu'
+import CategoryList from './components/categories/category-list'
+import VideoList from './components/videos/video-list'
 class App extends React.Component {
 
   render() {
@@ -16,6 +18,8 @@ class App extends React.Component {
           </header>
             <NavigationMenu/>
           <main>
+            <CategoryList/>
+            <VideoList/>
           </main>
           </div>
         </WithThemes>

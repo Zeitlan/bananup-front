@@ -26,12 +26,11 @@ class NavigationMenu extends React.Component {
 const CustomDrawer = styled(Drawer)`
     .paper {
         background-color: #424242;
-        width: 250px;
-        z-index: -1;
+        z-index: 1;
     }
     .root-drawer {
         width:300;
-        z-index: -1;
+        z-index: 1;
     }
     width:300;
 `

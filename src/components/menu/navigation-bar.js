@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography'
 
 
 class NavigationBar extends React.Component {
-
   render() {
     return (
         <CustomAppBar position="fixed" color="primary">

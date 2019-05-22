@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import imgWoW from "./world-of-warcraft.jpg"
-class Category extends React.Component {
+import imgWoW from "./wow-gameplay.jpg"
+class Video extends React.Component {
     
   render() {
     return (
@@ -13,16 +13,15 @@ class Category extends React.Component {
 }
 
 // PropTypes
-Category.propTypes = {
+Video.propTypes = {
 }
 
 // Styles
 const Container = styled.div `
-    flex: 0 1 20%;
-    float: left;
-    margin: 10px;
-    max-height: 400px;
-    min-width: 150px;
+flex: 0 1 45%;
+float: left;
+margin: 10px;
+min-width: 250px;
 `
 const ImgContainer = styled.img`
     border-radius: 4%;
@@ -30,4 +29,4 @@ const ImgContainer = styled.img`
     max-height: 100%;
 `
 
-export default Category
+export default Video
