@@ -13,6 +13,9 @@ const MaterialUiTheme = props => (
   <MuiThemeProvider theme={muiTheme}>{props.children}</MuiThemeProvider>
 )
 
+MaterialUiTheme.propTypes = {
+  children: PropTypes.any
+}
 
 const StyledComponentsTheme = props => (
   <ThemeProvider theme={{ app: styledTheme, mui: props.theme }}>
@@ -20,6 +23,10 @@ const StyledComponentsTheme = props => (
   </ThemeProvider>
 )
 
+StyledComponentsTheme.propTypes = {
+  children: PropTypes.any,
+  theme: PropTypes.object.isRequired
+}
 const StyledComponentsThemeWithMui = withTheme()(StyledComponentsTheme)
 
 const WithThemes = props => (

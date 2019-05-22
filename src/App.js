@@ -2,23 +2,24 @@
 import React from 'react'
 import { ContextProvider } from './context'
 import WithThemes from './theme'
-import Typography from '@material-ui/core/Typography'
-import styled from 'styled-components'
-
+import NavigationBar from './components/menu/navigation-bar'
+import NavigationMenu  from './components/menu/navigation-menu'
 class App extends React.Component {
 
   render() {
     return (
       <ContextProvider>
         <WithThemes>
-          <CustomTypo>Starter</CustomTypo>
+          <div>
+          <header>
+            <NavigationBar/>
+          </header>
+            <NavigationMenu/>
+          <main>
+          </main>
+          </div>
         </WithThemes>
     </ContextProvider>)
   }
 }
-
-const CustomTypo = styled(Typography)`
-  background: ${props => props.theme.mui.palette.primary.main};
-`
-
 export default App

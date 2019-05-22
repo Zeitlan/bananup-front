@@ -1,6 +1,6 @@
 import React from 'react'
 import { Context } from './context'
-
+import PropTypes from 'prop-types'
 export class ContextProvider extends React.PureComponent {
     state = {
     }
@@ -15,4 +15,8 @@ export class ContextProvider extends React.PureComponent {
             </Context.Provider>
         )
     }
+}
+
+ContextProvider.propTypes = {
+    children: PropTypes.any.isRequired
 }
