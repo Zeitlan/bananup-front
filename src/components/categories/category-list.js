@@ -6,7 +6,7 @@ class CategoryList extends React.Component {
   render() {
     return (
         <Container>
-            <CustomTitle>Categories</CustomTitle>
+            <CustomTitle>Populaires</CustomTitle>
             <List>
                 <Category/>
                 <Category/>
@@ -28,12 +28,14 @@ const Container = styled.div`
     margin-left: 200px;
     margin-right: 20px;
     margin-top: 100px;
+    margin-bottom: 100px;
 `
 
 const CustomTitle = styled.h2`
     color: #969595;
 `
 const List =  styled.div`
+    margin: auto;
     flex-grow: 1;
     display: flex;
     justify-content: flex-start;
