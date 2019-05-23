@@ -19,9 +19,8 @@ Category.propTypes = {
 // Styles
 const Container = styled.div `
     flex: 0 1 20%;
-    float: left;
-    margin: 10px;
-    max-height: 400px;
+    margin: auto;
+    max-height: 300px;
     min-width: 150px;
 `
 const ImgContainer = styled.img`

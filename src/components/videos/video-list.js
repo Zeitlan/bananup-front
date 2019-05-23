@@ -1,17 +1,45 @@
 import React from 'react'
 import styled from 'styled-components'
-import Video from './video'
+import VideoPreview from './video-preview'
 class VideoList extends React.Component {
     
   render() {
     return (
         <Container>
-            <CustomTitle>Vidéos</CustomTitle>
+            <CustomTitle>Vidéos du moment</CustomTitle>
             <List>
-                <Video/>
-                <Video/>
-                <Video/>
-                <Video/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+                <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
             </List>
         </Container>
     )
@@ -34,6 +62,7 @@ const CustomTitle = styled.h2`
     color: #969595;
 `
 const List =  styled.div`
+    margin: auto;
     flex-grow: 1;
     display: flex;
     justify-content: flex-start;
