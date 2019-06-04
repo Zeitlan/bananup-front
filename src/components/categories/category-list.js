@@ -6,7 +6,10 @@ class CategoryList extends React.Component {
   render() {
     return (
         <Container>
-            <CustomTitle>Populaires</CustomTitle>
+            <TopRow>
+                <CustomTitle>Catégories Populaires</CustomTitle>
+                <More href="...">Voir plus..</More>
+            </TopRow>
             <List>
                 <Category/>
                 <Category/>
@@ -25,10 +28,18 @@ CategoryList.propTypes = {
 // Styles
 
 const Container = styled.div`
-    margin-left: 200px;
-    margin-right: 20px;
-    margin-top: 100px;
-    margin-bottom: 100px;
+    margin: auto;
+`
+const TopRow = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+`
+const More = styled.a`
+    margin: auto;
+    margin-right: 0;
+    text-decoration-style: none;
+    color: #747373;
 `
 
 const CustomTitle = styled.h2`

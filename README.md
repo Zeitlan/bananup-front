@@ -1,6 +1,6 @@
-# Unknown Front
+# Bananup Front
 
-This repository contains the front-end of the Unknown project. Which is made
+This repository contains the front-end of the Bananup project. Which is made
 to give feedbacks on video games performances.
 
 For now, this project contains:

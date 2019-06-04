@@ -12,7 +12,7 @@ class NavigationBar extends React.Component {
         <CustomAppBar position="fixed" color="primary">
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
-            Unknown Project
+            Bananup
           </Typography>
         </Toolbar>
       </CustomAppBar>
