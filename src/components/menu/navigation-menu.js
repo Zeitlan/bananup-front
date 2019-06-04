@@ -6,6 +6,13 @@ import Input from '@material-ui/core/Input'
 import ClippedNavigationList from './clipped-navigation-list'
 
 
+const navItems = [
+    {
+        text:"Home",
+        link:"/"
+    }
+]
+
 class NavigationMenu extends React.Component {
 
   render() {
@@ -19,7 +26,7 @@ class NavigationMenu extends React.Component {
                         color="primary"
                         placeholder="Search…"
                     />
-                    <ClippedNavigationList navItems = { ["Test", "Test2"] }/>
+                    <ClippedNavigationList navItems = { navItems}/>
             </CustomDrawer>
     )
   }
