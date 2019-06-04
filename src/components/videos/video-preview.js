@@ -50,6 +50,13 @@ const VideoDescription= styled.div`
     display: flex;
     flex-direction: column;
   }
+
+`
+const CustomCaption = styled.p`
+  color: #969595;
+  margin: 4px;
+  font-size: 16px;
+
   .video-category{
     margin-top: auto;
   }
@@ -60,12 +67,6 @@ const VideoDescription= styled.div`
     color: #747373;
     font-size: 12px;
   }
-
-`
-const CustomCaption = styled.p`
-  color: #969595;
-  margin: 4px;
-  font-size: 16px;
 `
 const ImgContainer = styled.img`
     border-radius: 4%;

@@ -53,9 +53,7 @@ VideoList.propTypes = {
 // Styles
 
 const Container = styled.div`
-    margin-left: 200px;
-    margin-right: 20px;
-    margin-top: 10px;
+    
 `
 
 const CustomTitle = styled.h2`
