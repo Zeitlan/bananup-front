@@ -7,22 +7,26 @@ import WithThemes from './theme'
 import NavigationBar from './components/menu/navigation-bar'
 import NavigationMenu  from './components/menu/navigation-menu'
 import Home from './pages/home'
+import { Router } from "@reach/router"
+
 class App extends React.Component {
 
   render() {
     return (
       <ContextProvider>
-        <WithThemes>
-          <div>
-            <header>
-              <NavigationBar/>
-            </header>
-            <NavigationMenu/>
-          <Main>
-            <Home/>
-          </Main>
-          </div>
-        </WithThemes>
+          <WithThemes>
+            <div>
+              <header>
+                <NavigationBar/>
+              </header>
+              <NavigationMenu/>
+              <Main>
+                <Router>
+                  <Home path="/"/>
+                </Router>
+              </Main>
+            </div>
+          </WithThemes>
     </ContextProvider>)
   }
 }
