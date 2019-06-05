@@ -1,0 +1,36 @@
+/* eslint-disable jsx-a11y/alt-text */
+import React from 'react'
+import styled from 'styled-components'
+import PropTypes from 'prop-types'
+
+import { Button } from '@material-ui/core'
+
+
+class ModalBottomActions extends React.Component {
+  render() {
+    return (
+        <BottomActions>
+            <CustomButton onClick={() => this.props.action()} classes={{root: 'root'}} color="primary" variant="contained">
+                {this.props.text}
+            </CustomButton>
+        </BottomActions>
+    )
+  }
+}
+
+
+ModalBottomActions.propTypes = {
+    action: PropTypes.func.isRequired,
+    text: PropTypes.string.isRequired
+}
+
+const BottomActions = styled.div`
+    margin-top: auto;
+    align-self: center;
+    width: 80%;
+    padding: 20px;
+`
+const CustomButton = styled(Button)`
+    width: 100%;
+`
+export default ModalBottomActions
