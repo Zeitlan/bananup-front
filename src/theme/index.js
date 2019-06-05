@@ -27,7 +27,7 @@ StyledComponentsTheme.propTypes = {
   children: PropTypes.any,
   theme: PropTypes.object.isRequired
 }
-const StyledComponentsThemeWithMui = withTheme()(StyledComponentsTheme)
+const StyledComponentsThemeWithMui = withTheme(StyledComponentsTheme)
 
 const WithThemes = props => (
   <MaterialUiTheme>
