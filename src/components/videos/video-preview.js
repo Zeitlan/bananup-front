@@ -52,7 +52,7 @@ const VideoDescription= styled.div`
   }
 
 `
-const CustomCaption = styled.p`
+const CustomCaption = styled.div`
   color: #969595;
   margin: 4px;
   font-size: 16px;
