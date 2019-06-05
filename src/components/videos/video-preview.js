@@ -38,7 +38,7 @@ const Container = styled.div `
   margin: auto;
   padding: 10px;
   max-width: 400px;
-  min-width: 300px;
+  min-width: 250px;
 `
 
 const VideoDescription= styled.div`
