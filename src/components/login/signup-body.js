@@ -4,8 +4,8 @@ import styled from 'styled-components'
 
 import PropTypes from 'prop-types'
 import { FilledInput, Grid } from '@material-ui/core'
-import ModalTitleBox from './modal-title-box';
-import ModalBottomActions from './modal-bottom-actions';
+import ModalTitleBox from '../modal/modal-title-box';
+import ModalBottomActions from '../modal/modal-bottom-actions';
 
 
 class SignupBody extends React.Component {
