@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Category from './category'
+import { Grid } from '@material-ui/core'
 class CategoryList extends React.Component {
     
   render() {
@@ -10,12 +11,20 @@ class CategoryList extends React.Component {
                 <CustomTitle>Catégories Populaires</CustomTitle>
                 <More href="...">Voir plus..</More>
             </TopRow>
-            <List>
-                <Category/>
-                <Category/>
-                <Category/>
-                <Category/>
-            </List>
+            <Grid container spacing={3}>
+                <Grid item sm={6} md={3}>
+                    <Category/>
+                </Grid>
+                <Grid item sm={6} md={3}>
+                    <Category/>
+                </Grid>
+                <Grid item sm={6} md={3}>
+                    <Category/>
+                </Grid>
+                <Grid item sm={6} md={3}>
+                    <Category/>
+                </Grid>
+            </Grid>
         </Container>
     )
   }
@@ -44,14 +53,6 @@ const More = styled.a`
 
 const CustomTitle = styled.h2`
     color: #969595;
-`
-const List =  styled.div`
-    margin: auto;
-    flex-grow: 1;
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    flex-direction: row;
 `
 
 export default CategoryList
