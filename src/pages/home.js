@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import Pitch from '../components/pitch/pitch'
 import CategoryListPreview from '../components/categories/category-list-preview'
-import VideoList from '../components/videos/video-list'
+import VideoListPreview from '../components/videos/video-list-preview'
 
 class Home extends React.Component {
 
@@ -12,7 +12,7 @@ class Home extends React.Component {
         <Container>
             <Pitch/>
             <CategoryListPreview/>
-            <VideoList/>
+            <VideoListPreview/>
         </Container>)
   }
 }

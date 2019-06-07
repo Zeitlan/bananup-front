@@ -14,6 +14,10 @@ const navItems = [
     {
         text:"Catégories",
         link:"/categories"
+    },
+    {
+        text:"Vidéos",
+        link:"/videos"
     }
 ]
 
