@@ -1,50 +1,31 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import VideoPreview from './video-preview'
 import { Grid } from '@material-ui/core'
 class VideoList extends React.Component {
     
   render() {
-    return (
-        <Container>
-            <CustomTitle>Vidéos du moment</CustomTitle>
-
-            <Grid container spacing={3}>
-                <Grid item sm={12} md={6} lg={3}>
-                    <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
+        const { videos } = this.props
+        return (
+            <Container>
+                <Grid container spacing={3}>
+                    {videos.map((video) => {
+                        return (
+                            <Grid  key={video.id} item sm={12} md={6} lg={3}>
+                                <VideoPreview title={video.title} date={video.date} creator={video.creator} game={video.category}/>
+                            </Grid>)
+                    })}
                 </Grid>
-                <Grid item sm={12} md={6} lg={3}>
-                    <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
-                </Grid>
-                <Grid item sm={12} md={6} lg={3}>
-                    <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
-                </Grid>
-                <Grid item sm={12} md={6} lg={3}>
-                    <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
-                </Grid>
-                <Grid item sm={12} md={6} lg={3}>
-                    <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
-                </Grid>
-                <Grid item sm={12} md={6} lg={3}>
-                    <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
-                </Grid>
-                <Grid item sm={12} md={6} lg={3}>
-                    <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
-                </Grid>
-                <Grid item sm={12} md={6} lg={3}>
-                    <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
-                </Grid>
-                <Grid item sm={12} md={6} lg={3}>
-                    <VideoPreview title={'2v2 WoW avec Mage Feu'} date={'20/08/2019'} creator={'Zeitlan'} game={'World of Warcraft'}/>
-                </Grid>
-            </Grid>
-        </Container>
-    )
+            </Container>
+        )
   }
 }
 
 // PropTypes
 VideoList.propTypes = {
+    videos: PropTypes.array.isRequired,
+    title: PropTypes.string.isRequired
 }
 
 // Styles
@@ -52,9 +33,4 @@ VideoList.propTypes = {
 const Container = styled.div`
     
 `
-
-const CustomTitle = styled.h2`
-    color: #969595;
-`
-
 export default VideoList

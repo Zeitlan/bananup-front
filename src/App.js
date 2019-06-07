@@ -8,6 +8,7 @@ import NavigationBar from './components/menu/navigation-bar'
 import NavigationMenu  from './components/menu/navigation-menu'
 import Home from './pages/home'
 import Categories from './pages/categories'
+import Videos from './pages/videos'
 import { Router } from "@reach/router"
 
 class App extends React.Component {
@@ -23,6 +24,7 @@ class App extends React.Component {
               <Main>
                 <Router>
                   <Home path="/"/>
+                  <Videos path="/videos"/>
                   <Categories path="/categories"/>
                 </Router>
               </Main>
