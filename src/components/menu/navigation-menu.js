@@ -10,6 +10,10 @@ const navItems = [
     {
         text:"Home",
         link:"/"
+    },
+    {
+        text:"Catégories",
+        link:"/categories"
     }
 ]
 
