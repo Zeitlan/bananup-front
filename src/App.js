@@ -7,10 +7,10 @@ import WithThemes from './theme'
 import NavigationBar from './components/menu/navigation-bar'
 import NavigationMenu  from './components/menu/navigation-menu'
 import Home from './pages/home'
+import Categories from './pages/categories'
 import { Router } from "@reach/router"
 
 class App extends React.Component {
-
   render() {
     return (
       <ContextProvider>
@@ -23,6 +23,7 @@ class App extends React.Component {
               <Main>
                 <Router>
                   <Home path="/"/>
+                  <Categories path="/categories"/>
                 </Router>
               </Main>
             </div>
