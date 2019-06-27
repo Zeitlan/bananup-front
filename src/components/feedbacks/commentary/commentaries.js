@@ -1,25 +1,39 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
-import styled from 'styled-components'
 import Commentary from './commentary'
-class CommentarySection extends React.Component {
+import PropTypes from 'prop-types'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import { makeStyles } from "@material-ui/core/styles";
 
-  render() {
-    return (
-        <Container>
-          <Commentary/>
-          <Commentary/>
-          <Commentary/>
-          <Commentary/>
-          <Commentary/>
-        </Container>
-    )
-  }
+const useStyles = makeStyles(() => ({
+  root: {
+    overflow: 'auto',
+    maxHeight: '80vh',
+  },
+  item: {
+    paddingTop: 0,
+    width: '100%'
+  },
+}));
+
+function CommentarySection(props) {
+  const classes = useStyles()
+  return (
+    <List className={classes.root} disablePadding={true}>
+      {props.comments.map((comment) => (
+        <ListItem className={classes.item} key={comment.id}>
+          <Commentary data={comment} />
+        </ListItem>
+      ))}
+    </List>
+  )
 }
 
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-`
+CommentarySection.propTypes = {
+  comments: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired
+  }))
+}
 
 export default CommentarySection
