@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 import React from 'react'
 import PropTypes from 'prop-types'
 import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
+import {ListItem, ListItemText} from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 import styled from 'styled-components'
 
 
@@ -10,26 +11,27 @@ function ListItemLink(props){
     return <ListItem button component="a" {...props} />
 }
 
-ListItemLink.propTypes = {
-    primary: PropTypes.string.isRequired
-}
+const useStyles = makeStyles(() => ({
+    item_text: {
+        color: '#F2F2F2'
+    },
+  }));
 
 
-
-class ClippedNavigationList extends React.Component {
-    render() {
-       return  (
-           <ClipContainer>
-                <List>
-                {this.props.navItems.map((navItem) => (
-                    <ListItemLink key={navItem.text} href={navItem.link}>
-                        <ListItemText primary={navItem.text}/>
-                    </ListItemLink>
-                ))}
-                </List>
-            </ClipContainer>
-       )
-    }
+export default function ClippedNavigationList(props) {
+    const { navItems } = props
+    const classes = useStyles();
+    return  (
+        <ClipContainer>
+            <List>
+            {navItems.map((navItem) => (
+                <ListItemLink key={navItem.text} href={navItem.link}>
+                    <ListItemText className={classes.item_text} color="primary" primary={navItem.text}/>
+                </ListItemLink>
+            ))}
+            </List>
+        </ClipContainer>
+    )
 }
 
 ClippedNavigationList.propTypes = {
@@ -38,9 +40,4 @@ ClippedNavigationList.propTypes = {
 
 const ClipContainer = styled.div`
     toolbar: theme.mixins.toolbar,
-
 `
-
-
-
-export default ClippedNavigationList

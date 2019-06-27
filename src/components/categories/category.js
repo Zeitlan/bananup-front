@@ -28,7 +28,7 @@ class Category extends React.Component {
 // PropTypes
 Category.propTypes = {
   title: PropTypes.string.isRequired,
-  nb_videos: PropTypes.string.isRequired,
+  nb_videos: PropTypes.number.isRequired,
 }
 
 // Styles

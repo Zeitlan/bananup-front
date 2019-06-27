@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import styled from 'styled-components'
@@ -6,9 +7,32 @@ import PropTypes from 'prop-types'
 import { FilledInput } from '@material-ui/core'
 import ModalTitleBox from '../modal/modal-title-box';
 import ModalBottomActions from '../modal/modal-bottom-actions';
+import { withContext } from '../../context'
 
-
+@withContext([],['login'])
 class LoginBody extends React.Component {
+
+  state = {
+    email: '',
+    password: '',
+  }
+
+  _login = () => {
+    const { actions: { login } } = this.props
+    const { email, password } = this.state
+    login(email, password).then((error) => {
+      console.log(error)
+      if (error === undefined) {
+        this.props._closeModal()
+      }
+    })
+  }
+
+  _handleTextFieldChange = (e) => {
+    this.setState({
+        [e.target.name]: e.target.value
+    });
+  }
   render() {
     return (
         <CustomModal>
@@ -19,19 +43,23 @@ class LoginBody extends React.Component {
                     placeholder="Email"
                     classes={{input: 'input'}}
                     type='email'
+                    name="email"
+                    onChange={this._handleTextFieldChange}
                 />
                  <p>Mot de passe</p>
                 <CustomTextField
                     placeholder="Mot de passe"
                     classes={{input: 'input'}}
                     type='password'
+                    name="password"
+                    onChange={this._handleTextFieldChange}
                 />
                 <SubFormActions>
                     <a>Mot de passe oublié</a>
                     <a onClick={this.props.goSignUp} className={'signup'}>{"S'inscrire"}</a>
                 </SubFormActions>
             </Content>
-            <ModalBottomActions text='Se connecter' action={this.props._closeModal}/>
+            <ModalBottomActions text='Se connecter' action={this._login}/>
         </CustomModal>
     )
   }
@@ -39,6 +67,7 @@ class LoginBody extends React.Component {
 
 
 LoginBody.propTypes = {
+    actions: PropTypes.object.isRequired,
     _closeModal: PropTypes.func.isRequired,
     goSignUp: PropTypes.func.isRequired
 }

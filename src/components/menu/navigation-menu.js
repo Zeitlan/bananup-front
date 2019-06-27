@@ -1,14 +1,13 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
-import styled from 'styled-components'
 import Drawer from '@material-ui/core/Drawer'
-import Input from '@material-ui/core/Input'
+import { makeStyles } from '@material-ui/core/styles'
 import ClippedNavigationList from './clipped-navigation-list'
 
 
 const navItems = [
     {
-        text:"Home",
+        text:"Accueil",
         link:"/"
     },
     {
@@ -21,42 +20,29 @@ const navItems = [
     }
 ]
 
-class NavigationMenu extends React.Component {
+const useStyles = makeStyles(() => ({
+    root: {
+        width:300,
+    },
+    paper: {
+        backgroundColor: '#424242',
+        zIndex: 1,
+    },
+    under: {
+        minHeight: 58,
+    },
+}));
 
-  render() {
+export default function NavigationMenu() {
+    const classes = useStyles();
     return (
-            <CustomDrawer
+            <Drawer
             variant="permanent"
             anchor="left"
-            classes={{ root: "root-drawer", paper: "paper" }}>
-                <UnderNav/>
-                    <CustomInputBase
-                        color="primary"
-                        placeholder="Search…"
-                    />
+            className={classes.root}
+            classes={{paper: classes.paper}}>
+                <div className={classes.under}/>
                     <ClippedNavigationList navItems = { navItems}/>
-            </CustomDrawer>
+            </Drawer>
     )
-  }
 }
-
-const CustomDrawer = styled(Drawer)`
-    .paper {
-        background-color: #424242;
-        z-index: 1;
-    }
-    .root-drawer {
-        width:300;
-        z-index: 1;
-    }
-    width:300;
-`
-const CustomInputBase = styled(Input)`
-    border-radius: 10%;
-`
-
-const UnderNav = styled.div`
-    min-height: 58px;
-`
-
-export default NavigationMenu
