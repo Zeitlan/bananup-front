@@ -11,8 +11,12 @@ const navItems = [
         link:"/"
     },
     {
-        text:"Catégories",
-        link:"/categories"
+        text:"Video",
+        link:"/video/Wppvh70iK3A"
+    },
+    {
+        text: "Catégories",
+        link: "/categories"
     },
     {
         text:"Vidéos",

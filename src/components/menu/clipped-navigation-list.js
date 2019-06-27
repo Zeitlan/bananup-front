@@ -2,13 +2,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import List from '@material-ui/core/List'
+import { Link } from '@reach/router'
 import {ListItem, ListItemText} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import styled from 'styled-components'
 
 
 function ListItemLink(props){
-    return <ListItem button component="a" {...props} />
+    return (
+        <ListItem button component={Link} {...props}/>
+    )
 }
 
 const useStyles = makeStyles(() => ({
@@ -25,7 +28,7 @@ export default function ClippedNavigationList(props) {
         <ClipContainer>
             <List>
             {navItems.map((navItem) => (
-                <ListItemLink key={navItem.text} href={navItem.link}>
+                <ListItemLink key={navItem.text} to={navItem.link}>
                     <ListItemText className={classes.item_text} color="primary" primary={navItem.text}/>
                 </ListItemLink>
             ))}
