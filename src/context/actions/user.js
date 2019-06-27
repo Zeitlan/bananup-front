@@ -4,7 +4,7 @@ export default (object) => {
     return {
         login: async (username, password) => {
             try {
-                const request = await fetch(appConfig.apiUrl + '/auth/login/', {
+                const request = await fetch(appConfig.authUrl + '/login/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ export default (object) => {
     
         signup: async (username, email, password1, password2) => {
             try {
-                const request = await fetch(appConfig.apiUrl + '/auth/register/', {
+                const request = await fetch(appConfig.authUrl + '/register/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
