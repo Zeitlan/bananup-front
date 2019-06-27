@@ -30,18 +30,6 @@ class VideoListPreview extends React.Component {
                 creator:'Zeitlan',
                 game:'World of Warcraft',
             },
-            {
-                title : '2v2 WoW avec Mage Feu', 
-                date: '20/08/2019',
-                creator:'Zeitlan',
-                game:'World of Warcraft',
-            },
-            {
-                title : '2v2 WoW avec Mage Feu', 
-                date: '20/08/2019',
-                creator:'Zeitlan',
-                game:'World of Warcraft',
-            },
         ]
     }
   render() {

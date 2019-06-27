@@ -26,7 +26,7 @@ ModalTitleBox.propTypes = {
 }
 const TitleBox = styled.div `
     width: 100%;
-    height: 20%;
+    height: 120px;
     border-radius: 5px 5px 0px 0px;
 
     border-bottom: 1px solid #424242;

@@ -46,7 +46,7 @@ export default function NavigationMenu() {
             className={classes.root}
             classes={{paper: classes.paper}}>
                 <div className={classes.under}/>
-                    <ClippedNavigationList navItems = { navItems}/>
+                <ClippedNavigationList navItems = { navItems}/>
             </Drawer>
     )
 }

@@ -3,7 +3,8 @@ import { Context } from './context'
 import PropTypes from 'prop-types'
 import playerActions from './actions/player'
 import userActions from './actions/user'
-
+import shareActions from './actions/share'
+import categoryActions from './actions/category'
 export class ContextProvider extends React.PureComponent {
     state = {
         ytPlayer: undefined,
@@ -11,8 +12,10 @@ export class ContextProvider extends React.PureComponent {
     }
 
     actions = {
-        ...playerActions(this),
         ...userActions(this),
+        ...shareActions(this),
+        ...categoryActions(this),
+        ...playerActions(this),
     }
 
     render () {
