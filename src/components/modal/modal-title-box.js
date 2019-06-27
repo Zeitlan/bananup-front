@@ -30,10 +30,10 @@ const TitleBox = styled.div `
     border-radius: 5px 5px 0px 0px;
 
     border-bottom: 1px solid #424242;
-    background-color: #303030;
+    background-color: #F0640D;
     display: flex;
     flex-direction: column;
-    color: #D0D0D0;
+    color: #F2F2F2;
     .title {
         margin: 0px;
         padding-left: 20px;

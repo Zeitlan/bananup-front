@@ -17,6 +17,7 @@ class LoginModal extends React.Component {
     this.props._closeModal()
     this.setState({displaying: 1})
   }
+
   render() {
     const { displaying } = this.state
     return (

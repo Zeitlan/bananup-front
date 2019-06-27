@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import styled from 'styled-components'
@@ -6,9 +7,32 @@ import PropTypes from 'prop-types'
 import { FilledInput, Grid } from '@material-ui/core'
 import ModalTitleBox from '../modal/modal-title-box';
 import ModalBottomActions from '../modal/modal-bottom-actions';
+import { withContext } from '../../context'
 
-
+@withContext([],['signup'])
 class SignupBody extends React.Component {
+  state = {
+    email: '',
+    username: '',
+    password: '',
+    password2: ''
+  }
+  _signUp = () => {
+    const { actions: { signup } } = this.props
+    const { username, email, password, password2 } = this.state
+    signup(username, email, password, password2).then((error) => {
+      console.log(error)
+      if (error === undefined) {
+        this.props._closeModal()
+      }
+    })
+  }
+  _handleTextFieldChange = (e) => {
+    this.setState({
+        [e.target.name]: e.target.value
+    });
+  }
+
   render() {
     return (
         <CustomModal>
@@ -19,10 +43,11 @@ class SignupBody extends React.Component {
                     <Grid item xs={12}>
                         <p>{"Nom d'utilisateur"}</p>
                         <CustomTextField
-                            placeholder="Email"
+                            placeholder="Nom d'utilisateur"
                             fullWidth={true}
                             classes={{input: 'input'}}
-                            type='email'
+                            name='username'
+                            onChange={this._handleTextFieldChange}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -32,6 +57,8 @@ class SignupBody extends React.Component {
                             fullWidth={true}
                             classes={{input: 'input'}}
                             type='email'
+                            name='email'
+                            onChange={this._handleTextFieldChange}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -41,20 +68,24 @@ class SignupBody extends React.Component {
                             fullWidth={true}
                             classes={{input: 'input'}}
                             type='password'
+                            name='password'
+                            onChange={this._handleTextFieldChange}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <p>Confirmer le mot de passe</p>
                         <CustomTextField
-                            placeholder="Mot de passe"
+                            placeholder="Confirmer le Mot de passe"
                             fullWidth={true}
                             classes={{input: 'input'}}
                             type='password'
+                            name='password2'
+                            onChange={this._handleTextFieldChange}
                         />
                     </Grid>
                 </Grid>
             </Content>
-            <ModalBottomActions text="S'inscrire" action={this.props.goLogin}/>
+            <ModalBottomActions text="S'inscrire" action={this._signUp}/>
         </CustomModal>
     )
   }
@@ -62,6 +93,7 @@ class SignupBody extends React.Component {
 
 
 SignupBody.propTypes = {
+    actions: PropTypes.object.isRequired,
     _closeModal: PropTypes.func.isRequired,
     goLogin: PropTypes.func.isRequired
 }
