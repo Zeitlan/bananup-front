@@ -1,21 +1,24 @@
 import React from 'react'
 import styled from 'styled-components'
-import imgWoW from './wow-gameplay.jpg'
 import PropTypes from 'prop-types'
+import { Link } from '@reach/router'
+
 class VideoPreview extends React.Component {
     
   render() {
-    const { title, date, creator, game } = this.props
+    const { name, created_at, author, category, link } = this.props.video
     return (
         <Container>
-            <ImgContainer src={imgWoW}/>
+            <Link to={"/video/"+link}>
+              <ImgContainer src={"https://img.youtube.com/vi/" + link + "/0.jpg"}/>
+            </Link>
             <VideoDescription>
               <div className={"video-information"}>
                 <CustomCaption>
-                  <div className={"video-title"}>{title}</div>
-                  <div className={"video-subinfo"}>Le {date}</div>
-                  <div className={"video-subinfo"}>Par {creator}</div>
-                  <div className={"video-subinfo video-category"}> {game} </div>
+                  <div className={"video-title"}>{name}</div>
+                  <div className={"video-subinfo"}>Le {created_at}</div>
+                  <div className={"video-subinfo"}>Par {author}</div>
+                  <div className={"video-subinfo video-category"}> {category} </div>
                 </CustomCaption>
               </div>
             </VideoDescription>
@@ -26,10 +29,7 @@ class VideoPreview extends React.Component {
 
 // PropTypes
 VideoPreview.propTypes = {
-  title: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
-  creator: PropTypes.string.isRequired,
-  game: PropTypes.string.isRequired
+  video: PropTypes.object.isRequired
 }
 
 // Styles

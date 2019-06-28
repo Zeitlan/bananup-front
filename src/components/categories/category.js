@@ -1,22 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import imgWoW from "./world-of-warcraft.jpg"
+import { Link } from '@reach/router'
 class Category extends React.Component {
-    
   state = {
     hover: false
   }
   render() {
-    const { title, nb_videos } = this.props
+    const { category } = this.props
     return (
         <Container onMouseEnter={() => this.setState({hover: true})} onMouseLeave={() => this.setState({hover: false})}>
-            <ImgContainer hover={this.state.hover} src={imgWoW}/>
+            <Link to={"/categorie/"+category.id}>
+              <ImgContainer hover={this.state.hover} src={category.image_url}/>
+            </Link>
             <CategoryDescription>
               <div className={"category-information"}>
                 <CustomCaption>
-                  <div>{title}</div>
-                  <div className={"category-subinfo"}>{nb_videos} vidéos</div>
+                  <div>{category.name}</div>
+                  <div className={"category-subinfo"}>{category.videos_count} vidéos</div>
                 </CustomCaption>
               </div>
             </CategoryDescription>
@@ -27,8 +28,7 @@ class Category extends React.Component {
 
 // PropTypes
 Category.propTypes = {
-  title: PropTypes.string.isRequired,
-  nb_videos: PropTypes.number.isRequired,
+  category: PropTypes.object.isRequired,
 }
 
 // Styles

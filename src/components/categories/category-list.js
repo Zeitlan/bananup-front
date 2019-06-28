@@ -1,61 +1,27 @@
 import React from 'react'
 import styled from 'styled-components'
 import Category from './category'
+import { withContext } from '../../context'
 import { Grid } from '@material-ui/core'
+import PropTypes from 'prop-types'
+
+@withContext(['categories'],['getCategories'])
 class CategoryListPreview extends React.Component {
     
+  componentDidMount() {
+      const { actions: { getCategories }} = this.props
+      getCategories()
+  }
+    
   render() {
+    const { state: {categories}} = this.props
     return (
         <Container>
             <Grid container spacing={3}>
-                <Grid item xs={6} sm={4} md={3} lg={2}>
-                    <Category title="World of Warcraft" nb_videos={10}/>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3} lg={2}>
-                    <Category title="World of Warcraft" nb_videos={10}/>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3} lg={2}>
-                    <Category title="World of Warcraft" nb_videos={10}/>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3} lg={2}>
-                    <Category title="World of Warcraft" nb_videos={10}/>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3} lg={2}>
-                    <Category title="World of Warcraft" nb_videos={10}/>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3} lg={2}>
-                    <Category title="World of Warcraft" nb_videos={10}/>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3} lg={2}>
-                    <Category title="World of Warcraft" nb_videos={10}/>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3} lg={2}>
-                    <Category title="World of Warcraft" nb_videos={10}/>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3} lg={2}>
-                    <Category title="World of Warcraft" nb_videos={10}/>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3} lg={2}>
-                    <Category title="World of Warcraft" nb_videos={10}/>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3} lg={2}>
-                    <Category title="World of Warcraft" nb_videos={10}/>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3} lg={2}>
-                    <Category title="World of Warcraft" nb_videos={10}/>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3} lg={2}>
-                    <Category title="World of Warcraft" nb_videos={10}/>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3} lg={2}>
-                    <Category title="World of Warcraft" nb_videos={10}/>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3} lg={2}>
-                    <Category title="World of Warcraft" nb_videos={10}/>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3} lg={2}>
-                    <Category title="World of Warcraft" nb_videos={10}/>
-                </Grid>
+              {categories && categories.slice(0,4).map((category) => 
+              <Grid key={category.id} item xs={6} sm={4} md={3} lg={2}>
+                  <Category category={category}/>
+              </Grid>)}
             </Grid>
         </Container>
     )
@@ -64,6 +30,8 @@ class CategoryListPreview extends React.Component {
 
 // PropTypes
 CategoryListPreview.propTypes = {
+    actions: PropTypes.object.isRequired,
+    state: PropTypes.object.isRequired
 }
 
 // Styles
