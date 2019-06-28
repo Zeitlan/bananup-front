@@ -2,6 +2,16 @@ import appConfig from '../../app-config'
 
 export default (object) => {
     return {
+        checkLogin: async () => {
+            var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, "$1");
+            if (cookieValue) {
+                object.setState({key: cookieValue})
+            }
+        },
+        logout: async () => {
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+            object.setState({key: undefined})
+        },
         login: async (username, password) => {
             try {
                 const request = await fetch(appConfig.authUrl + '/login/', {
@@ -21,6 +31,7 @@ export default (object) => {
                     return json
                 } else {
                     object.setState({key: json.key})
+                    document.cookie = "token="+json.key
                 }
             }
             catch(error) {
@@ -52,6 +63,7 @@ export default (object) => {
                     return json
                 } else {
                     object.setState({key: json.key})
+                    document.cookie = "token="+json.key
                 }
             }
             catch(error) {

@@ -59,7 +59,6 @@ class ShareForm extends React.Component {
   render() {
     let link = this._getIdFromYouTubeVideo(this.state.link)
     const { state: {categories}} = this.props
-    console.log(categories)
     return (
         <CustomModal>
             <ModalTitleBox title='Partager une vidéo' _closeModal={this.props._closeModal} />

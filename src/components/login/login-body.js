@@ -38,9 +38,9 @@ class LoginBody extends React.Component {
         <CustomModal>
             <ModalTitleBox title='Se connecter' _closeModal={this.props._closeModal} />
             <Content>
-                <p>{"Nom dutilisateur / Mail"}</p>
+                <p>{"Nom d'utilisateur"}</p>
                 <CustomTextField
-                    placeholder="Email"
+                    placeholder="Nom d'utilisateur"
                     classes={{input: 'input'}}
                     type='email'
                     name="email"
