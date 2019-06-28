@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Typography, Toolbar, AppBar, Button, IconButton } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { AddToQueue } from '@material-ui/icons';
+import { AddToQueue, ExitToApp } from '@material-ui/icons';
 import LoginModal from '../login'
 import { withContext } from '../../context'
 import PropTypes from 'prop-types'
@@ -24,6 +24,9 @@ function NavigationBar(props) {
   const classes = useStyles();
   const [openLogin, setOpenLogin] = useState(false);
   const [openShareVideo, setOpenShareVideo] = useState(false);
+  useEffect(() => {
+    props.actions.checkLogin()
+  }, [])
   return (
       <AppBar className={classes.root} position="fixed" color="primary">
       <Toolbar>
@@ -36,6 +39,9 @@ function NavigationBar(props) {
               <span className={classes.leftAligned}>Vous êtes connecté !</span>
               <IconButton onClick={() => setOpenShareVideo(true)} className={classes.iconAdd} color="inherit">
                 <AddToQueue color="inherit" />
+              </IconButton>
+              <IconButton onClick={() => props.actions.logout()} className={classes.iconAdd} color="inherit">
+                <ExitToApp color="inherit" />
               </IconButton>
               
             </div>
@@ -52,7 +58,8 @@ function NavigationBar(props) {
 
 NavigationBar.propTypes = {
     state: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired
 }
 
 
-export default withContext(['key'],[])(NavigationBar)
+export default withContext(['key'],['checkLogin', 'logout'])(NavigationBar)
