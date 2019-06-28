@@ -11,24 +11,28 @@ function AddCommentary(props) {
   useEffect(() => {
     if (videoTick === undefined && props.state.ytPlayer !== undefined) {
       videoTickSet(setInterval(() => {
-        console.log(props.state.ytPlayer.getCurrentTime())
         videoTimestampSet(props.state.ytPlayer.getCurrentTime())
       }, 1000))
     }
-    return clearInterval(videoTick)
-  }, [props.state.ytPlayer]);
+    return () => clearInterval(videoTick)
+  }, [props.state.ytPlayer, videoTick]);
+
   return (
       <>
         <TextInput
           label={"Commentaire " + (videoTimestamp ? toMMSS(videoTimestamp) : '0:00')}
-          sendFunction = {(text) => console.log(videoTimestamp + text)}
+          sendFunction = {(text) => {
+            return props.actions.addVideoComment(props.videoId, text, videoTimestamp)
+          }}
         />
       </>
   )
 }
 // PropTypes
 AddCommentary.propTypes = {
-    state: PropTypes.object.isRequired
+    state: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired,
+    videoId: PropTypes.number.isRequired
 }
 
-export default withContext(['ytPlayer'],[])(AddCommentary)
+export default withContext(['ytPlayer'],['addVideoComment'])(AddCommentary)

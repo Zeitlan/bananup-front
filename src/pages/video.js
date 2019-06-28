@@ -1,45 +1,12 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from "@material-ui/core/styles";
 import YoutubePlayer from '../components/video-player/youtube-player'
 import Comments from '../components/feedbacks/commentary/commentaries'
 import AddComment from '../components/feedbacks/commentary/add-commentary'
-
-
-const comments = [
-  {
-    id:1,
-    text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-           Curabitur placerat ante nec erat hendrerit, sit amet rutrum tortor ultrices.
-           Donec efficitur justo sed gravida scelerisque. Nullam sed semper mi.
-           Nunc dapibus viverra magna eget aliquam. Curabitur malesuada elit consectetur mauris lacinia efficitur.
-           Sed venenatis, ipsum nec malesuada ornare, est dui ultricies metus, eu efficitur nibh dolor vitae neque.
-           Suspendisse molestie sapien ipsum, id ultrices magna fermentum vitae. Cras ullamcorper laoreet neque a tristique.
-           Phasellus vel condimentum nibh, at ornare arcu. Morbi fermentum diam consequat nisl gravida, non laoreet erat lacinia.
-           Duis maximus vulputate ex sit amet consectetur. Morbi dignissim tortor vehicula, dictum tellus non, commodo neque.
-           Quisque libero nunc, lacinia id ex eu, efficitur ultrices est. Maecenas euismod leo sed sem accumsan, ac tristique odio placerat.
-           Cras id egestas arcu.`,
-    author: {
-      username: 'xPeke'
-    }
-  },
-  {
-    id:2,
-    text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
-    author: {
-      username: 'Lulu'
-    }
-  },
-  {
-    id:3,
-    text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur placerat ante nec erat hendrerit, sit amet rutrum tortor ultrices. Donec efficitur justo sed gravida scelerisque. Nullam sed semper mi. Nunc dapibus viverra magna eget aliquam. Curabitur malesuada elit consectetur mauris lacinia efficitur. Sed venenatis, ipsum nec malesuada ornare, est dui ultricies metus, eu efficitur nibh dolor vitae neque. Suspendisse molestie sapien ipsum, id ultrices magna fermentum vitae. Cras ullamcorper laoreet neque a tristique. Phasellus vel condimentum nibh, at ornare arcu. Morbi fermentum diam consequat nisl gravida, non laoreet erat lacinia. Duis maximus vulputate ex sit amet consectetur. Morbi dignissim tortor vehicula, dictum tellus non, commodo neque. Quisque libero nunc, lacinia id ex eu, efficitur ultrices est. Maecenas euismod leo sed sem accumsan, ac tristique odio placerat. Cras id egestas arcu.`,
-    author: {
-      username: 'Mixea'
-    }
-  }
-]
+import { withContext } from '../context'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -62,7 +29,21 @@ const useStyles = makeStyles(() => ({
 
 function Video(props) {
   const { videoId } = props
+  const { comments } = props.state
   const classes = useStyles()
+  const [video, videoSet] = useState(undefined);
+  useEffect(() => {
+    if (!video) {
+      const { actions: { getVideoInformation }} = props
+      getVideoInformation(videoId).then((json) => {
+        videoSet(json)
+      })
+    }
+    if (!comments){
+      const { actions: { getVideoComments }} = props
+      getVideoComments(videoId)
+    }
+  }, []);
   return (
     <div className={classes.root}>
       <Grid container spacing={4}>
@@ -70,16 +51,16 @@ function Video(props) {
           <Grid container>
             <Grid item xs={12} lg={12}>
               <div className={classes.videoContainer}>
-                <YoutubePlayer className={classes.video} videoId={videoId} />
+                {video && <YoutubePlayer className={classes.video} videoId={video.link} />}
               </div>
             </Grid>
             <Grid item xs={12} lg={12}>
-              <AddComment className={classes.addComment}/>
+              {props.state.key && video && <AddComment className={classes.addComment} videoId={video.id}/>}
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={12} lg={4}>
-          <Comments comments={comments}/>
+          <Comments comments={comments ? comments : []}/>
         </Grid>
       </Grid>
     </div>
@@ -88,7 +69,8 @@ function Video(props) {
 
 // PropTypes
 Video.propTypes = {
-  videoId: PropTypes.string
+  videoId: PropTypes.string,
+  state: PropTypes.object,
 }
 
-export default Video
+export default withContext(['key', 'comments'],['getVideoInformation', 'getVideoComments'])(Video)

@@ -6,10 +6,10 @@ import { Link } from '@reach/router'
 class VideoPreview extends React.Component {
     
   render() {
-    const { name, created_at, author, category, link } = this.props.video
+    const { name, created_at, author, category, link, id } = this.props.video
     return (
         <Container>
-            <Link to={"/video/"+link}>
+            <Link to={"/video/"+id}>
               <ImgContainer src={"https://img.youtube.com/vi/" + link + "/0.jpg"}/>
             </Link>
             <VideoDescription>
@@ -17,8 +17,8 @@ class VideoPreview extends React.Component {
                 <CustomCaption>
                   <div className={"video-title"}>{name}</div>
                   <div className={"video-subinfo"}>Le {created_at}</div>
-                  <div className={"video-subinfo"}>Par {author}</div>
-                  <div className={"video-subinfo video-category"}> {category} </div>
+                  <div className={"video-subinfo"}>Par {author.username}</div>
+                  <div className={"video-subinfo video-category"}> {category.name} </div>
                 </CustomCaption>
               </div>
             </VideoDescription>
