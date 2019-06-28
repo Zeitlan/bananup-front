@@ -1,0 +1,52 @@
+image: node:10-alpine
+
+stages:
+#  - build
+#  - lint
+#  - test
+  - deploy
+
+
+#cache:
+#  key: ${CI_COMMIT_REF_SLUG}
+#  paths:
+#    - node_modules/
+
+#build:
+#  stage: build
+#  except:
+#    - deployment
+#  variables:
+#    NODE_ENV: test
+#  script:
+#    - rm -rf node_modules/
+#    - npm install
+#  artifacts:
+#    paths:
+#      - node_modules/
+#
+#test:
+#  stage: test
+#  except:
+#    - deployment
+#  script:
+#    - npm test
+#
+#lint:
+#  stage: lint
+#  except:
+#    - deployment
+#  script:
+#    - npm run lint
+
+deploy:
+  image: alpine:3.7
+  stage: deploy
+  environment:
+    name: integration
+  only:
+    - deployment
+  before_script:
+    - apk add --no-cache bash make
+  script:
+    - bash deploy.sh
