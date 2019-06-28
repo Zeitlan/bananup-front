@@ -1,58 +1,37 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { withContext } from '../context'
 import VideoList from '../components/videos/video-list'
+import PropTypes from 'prop-types'
 
-const videos = [
-        {
-            title : '2v2 WoW avec Mage Feu', 
-            date: '20/08/2019',
-            creator:'Zeitlan',
-            game:'World of Warcraft',
-        },
-        {
-            title : '2v2 WoW avec Mage Feu', 
-            date: '20/08/2019',
-            creator:'Zeitlan',
-            game:'World of Warcraft',
-        },
-        {
-            title : '2v2 WoW avec Mage Feu', 
-            date: '20/08/2019',
-            creator:'Zeitlan',
-            game:'World of Warcraft',
-        },
-        {
-            title : '2v2 WoW avec Mage Feu', 
-            date: '20/08/2019',
-            creator:'Zeitlan',
-            game:'World of Warcraft',
-        },
-        {
-            title : '2v2 WoW avec Mage Feu', 
-            date: '20/08/2019',
-            creator:'Zeitlan',
-            game:'World of Warcraft',
-        },
-        {
-            title : '2v2 WoW avec Mage Feu', 
-            date: '20/08/2019',
-            creator:'Zeitlan',
-            game:'World of Warcraft',
-        },
-    ]
-
+@withContext(['categories'],['getCategoryVideos'])
 class Videos extends React.Component {
-
+  state = {
+    videos: undefined
+  }
+  componentDidMount() {
+    const { categoryId } = this.props
+    const {actions: {getCategoryVideos}} = this.props
+    getCategoryVideos(categoryId).then(json => {
+      this.setState({videos: json.videos})
+    })
+  }
   render() {
+    const { videos } = this.state
     return (
         <Container>
             <CustomTitle>Vidéos</CustomTitle>
-            <VideoList videos={videos}/>
+            { videos && <VideoList videos={videos}/> }
         </Container>)
   }
 }
 
+Videos.propTypes = {
+  actions: PropTypes.object.isRequired,
+  state: PropTypes.object.isRequired,
+  categoryId: PropTypes.string.isRequired
+}
 const Container = styled.div`
 `
 

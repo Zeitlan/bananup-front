@@ -20,5 +20,17 @@ export default (object) => {
       }
       return undefined
     },
+    getCategoryVideos: async (id) => {
+      try {
+        const request = await fetch(appConfig.apiUrl + '/categories/' + id + '/')
+        const json = await request.json()
+        return json
+      }
+      catch(error) {
+        return {
+          message: 'Erreur : ' + error.message
+        }
+      }
+    }
   }
 }

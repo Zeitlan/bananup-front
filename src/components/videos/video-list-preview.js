@@ -7,28 +7,44 @@ class VideoListPreview extends React.Component {
     state = {
         videos: [
             {
-                title : '2v2 WoW avec Mage Feu', 
-                date: '20/08/2019',
-                creator:'Zeitlan',
-                game:'World of Warcraft',
+                author: 2,
+                category: 1,
+                created_at: "2019-06-27T19:52:51.676926Z",
+                id: 1,
+                link: "iE2wwzM0p68",
+                name: "World of Warcraft",
+                url: "http://127.0.0.1:8000/videos/1/",
+                views: 0
             },
             {
-                title : '2v2 WoW avec Mage Feu', 
-                date: '20/08/2019',
-                creator:'Zeitlan',
-                game:'World of Warcraft',
+                author: 2,
+                category: 1,
+                created_at: "2019-06-27T19:52:51.676926Z",
+                id: 1,
+                link: "iE2wwzM0p68",
+                name: "World of Warcraft",
+                url: "http://127.0.0.1:8000/videos/1/",
+                views: 0
             },
             {
-                title : '2v2 WoW avec Mage Feu', 
-                date: '20/08/2019',
-                creator:'Zeitlan',
-                game:'World of Warcraft',
+                author: 2,
+                category: 1,
+                created_at: "2019-06-27T19:52:51.676926Z",
+                id: 1,
+                link: "iE2wwzM0p68",
+                name: "World of Warcraft",
+                url: "http://127.0.0.1:8000/videos/1/",
+                views: 0
             },
             {
-                title : '2v2 WoW avec Mage Feu', 
-                date: '20/08/2019',
-                creator:'Zeitlan',
-                game:'World of Warcraft',
+                author: 2,
+                category: 1,
+                created_at: "2019-06-27T19:52:51.676926Z",
+                id: 1,
+                link: "iE2wwzM0p68",
+                name: "World of Warcraft",
+                url: "http://127.0.0.1:8000/videos/1/",
+                views: 0
             },
         ]
     }

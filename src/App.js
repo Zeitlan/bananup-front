@@ -26,7 +26,7 @@ class App extends React.Component {
                 <Router>
                   <Home path="/"/>
                   <Video path="/video/:videoId"/>
-                  <Videos path="/videos"/>
+                  <Videos path="/categorie/:categoryId"/>
                   <Categories path="/categories"/>
                 </Router>
               </Main>

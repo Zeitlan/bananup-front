@@ -24,7 +24,7 @@ module.exports = {
     'react',
   ],
   rules: {
-    
+      "no-console" :0,
   },
 
 

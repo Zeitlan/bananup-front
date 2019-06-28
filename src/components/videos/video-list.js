@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import VideoPreview from './video-preview'
 import { Grid } from '@material-ui/core'
 class VideoList extends React.Component {
-    
   render() {
         const { videos } = this.props
         return (
@@ -13,7 +12,7 @@ class VideoList extends React.Component {
                     {videos.map((video) => {
                         return (
                             <Grid  key={video.id} item sm={12} md={6} lg={3}>
-                                <VideoPreview title={video.title} date={video.date} creator={video.creator} game={video.category}/>
+                                <VideoPreview video={video}/>
                             </Grid>)
                     })}
                 </Grid>
