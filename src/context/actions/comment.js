@@ -27,13 +27,12 @@ export default (object) => {
           },
           body: JSON.stringify({
             text,
-            videoTime,
+            video_time: Math.round(videoTime),
           })
         })
         const json = await request.json()
         const status = request.status
-        if (status !== 200) {
-          console.log(json)
+        if (status === 201) {
           object.setState({ comments: [json, ...object.state.comments] })
           return json
         }
