@@ -22,7 +22,7 @@ class CategoryListPreview extends React.Component {
                 <More to="/categories">Voir plus..</More>
             </TopRow>
             <Grid container spacing={3}>
-                {categories && categories.slice(0,4).map((category) => 
+                {categories && categories.slice(0,6).map((category) => 
                   <Grid key={category.id} item sm={6} md={3}>
                       <Category category={category}/>
                   </Grid>)}

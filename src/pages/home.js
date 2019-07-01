@@ -11,13 +11,18 @@ class Home extends React.Component {
     return (
         <Container>
             <Pitch/>
-            <CategoryListPreview/>
-            <VideoListPreview/>
+            <Body>
+              <CategoryListPreview/>
+              <VideoListPreview/>
+            </Body>
         </Container>)
   }
 }
 
 const Container = styled.div`
+`
+const Body = styled.div`
+  margin: 40px;
 `
 
 export default Home

@@ -4,30 +4,33 @@ import styled from 'styled-components'
 import upload from './upload.png'
 import customer from './customer.png'
 import improvement from './improvement.png'
+import esportBackground from './esport-background.jpg'
 class Pitch extends React.Component {
 
   render() {
     return (
         <Container>
-            <PitchTitle>{"Qu'est-ce que Bananup ?"}</PitchTitle>
+            <BackgroundContainer>
+                <PitchTitle>IMPROVE YOUR <ImportantText>GAMING SKILLS</ImportantText> EASILY<br/>THANKS TO <ImportantText>BANANUP</ImportantText></PitchTitle>
+            </BackgroundContainer>
             <PitchRow>
                 <PitchElement>
                     <PitchImg src={upload}/>
-                    <PitchSubTitle>Partager vos vidéos</PitchSubTitle>
-                    <PitchText>Afin de permettre à la communauté de</PitchText>
-                    <PitchText>Bananup de t&apos;aider !</PitchText>
+                    <PitchSubTitle>SHARE YOUR VIDEOS</PitchSubTitle>
+                    <PitchText>That will permit to Bananup&apos;s community</PitchText>
+                    <PitchText>to help you!</PitchText>
                 </PitchElement>
                 <PitchElement>
                     <PitchImg src={customer}/>
-                    <PitchSubTitle>Recevoir ou donner des conseils</PitchSubTitle>
-                    <PitchText>Et gagnez en réputation</PitchText>
-                    <PitchText>grâce à notre système de votes !</PitchText>
+                    <PitchSubTitle>RECEIVE OR GIVE ADVICES</PitchSubTitle>
+                    <PitchText>Gain in reputation</PitchText>
+                    <PitchText>thanks to our vote system!</PitchText>
                 </PitchElement>
                 <PitchElement>
                     <PitchImg src={improvement}/>
-                    <PitchSubTitle>Gagner en compétences</PitchSubTitle>
-                    <PitchText>Que ce soit en aidant</PitchText>
-                    <PitchText>ou en étant aidé !</PitchText>
+                    <PitchSubTitle>IMPROVE YOUR SKILLS</PitchSubTitle>
+                    <PitchText>By helping</PitchText>
+                    <PitchText>or being helped!</PitchText>
                 </PitchElement>
             </PitchRow>
         </Container>
@@ -35,6 +38,18 @@ class Pitch extends React.Component {
   }
 }
 
+const BackgroundContainer = styled.div`
+    background: linear-gradient(
+                rgba(240, 100, 13, 0.30), 
+                rgba(48, 48, 48, 1)
+                ),url(${esportBackground});
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+`
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -56,11 +71,20 @@ const PitchImg = styled.img`
     margin-bottom: 10px;
 `
 const PitchTitle = styled.h2`
-    color: #969595;
-    margin: 4px;
-    font-size: 200%;
-    margin-bottom: 20px;
+    margin: auto;
+    margin-left: 10%;
+    margin-top: 250px;
+    color: #F2F2F2;
+    justify-content:center;
+    align-content:center;
+    font-size: 230%;
+    font-weight: bold;
 `
+
+const ImportantText = styled.span`
+    color: #F0640D;
+`
+
 const PitchSubTitle = styled.h2`
     color: #969595;
     margin: 4px;
