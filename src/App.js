@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import { ContextProvider } from './context'
-import styled from 'styled-components'
+import { makeStyles } from '@material-ui/core/styles'
 
 import WithThemes from './theme'
 import NavigationBar from './components/menu/navigation-bar'
@@ -11,36 +11,46 @@ import Video from './pages/video'
 import Categories from './pages/categories'
 import Videos from './pages/videos'
 import { Router } from "@reach/router"
+import Toolbar from '@material-ui/core/Toolbar';
 
-class App extends React.Component {
-  render() {
-    return (
-      <ContextProvider>
-          <WithThemes>
-            <div>
-              <header>
-                <NavigationBar/>
-              </header>
-              <NavigationMenu/>
-              <Main>
-                <Router>
-                  <Home path="/"/>
-                  <Video path="/video/:videoId"/>
-                  <Videos path="/categorie/:categoryId"/>
-                  <Categories path="/categories"/>
-                </Router>
-              </Main>
-            </div>
-          </WithThemes>
-    </ContextProvider>)
+
+const useStyles = makeStyles(theme => ({
+  main: {
+    marginLeft: 150,
+    [theme.breakpoints.down('xs')]: {
+      marginLeft: 0,
+    },
+  },
+}));
+function App() {
+
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  function handleDrawerToggle() {
+    setMobileOpen(!mobileOpen);
   }
-}
 
-const Main = styled.main`
-    margin-left: 200px;
-    margin-right: 20px;
-    margin-top: 100px;
-    margin-bottom: 100px;
-`
+  const classes = useStyles();
+  return (
+    <ContextProvider>
+        <WithThemes>
+          <div>
+            <header>
+              <NavigationBar open={mobileOpen} drawerToggle={handleDrawerToggle}/>
+              <NavigationMenu open={mobileOpen} drawerToggle={handleDrawerToggle}/>
+            </header>
+            <Toolbar/>
+            <div className={classes.main}>
+              <Router>
+                <Home path="/"/>
+                <Video path="/video/:videoId"/>
+                <Videos path="/categorie/:categoryId"/>
+                <Categories path="/categories"/>
+              </Router>
+            </div>
+          </div>
+        </WithThemes>
+  </ContextProvider>)
+}
 
 export default App

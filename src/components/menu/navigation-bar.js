@@ -1,16 +1,28 @@
 import React, {useState, useEffect} from 'react'
 import { Typography, Toolbar, AppBar, Button, IconButton } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { AddToQueue, ExitToApp } from '@material-ui/icons';
+import { AddToQueue, ExitToApp, Menu } from '@material-ui/icons';
 import LoginModal from '../login'
 import { withContext } from '../../context'
 import PropTypes from 'prop-types'
 import ShareVideoModal from '../share-video';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     height: 64
+  },
+  appBar: {
+    marginLeft: 150,
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${150}px)`,
+    },
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
   },
   leftAligned: {
     marginLeft: 'auto',
@@ -30,6 +42,15 @@ function NavigationBar(props) {
   return (
       <AppBar className={classes.root} position="fixed" color="primary">
       <Toolbar>
+        <IconButton
+            color="inherit"
+            aria-label="Open drawer"
+            edge="start"
+            onClick={() => props.drawerToggle()}
+            className={classes.menuButton}
+          >
+            <Menu />
+        </IconButton>
         <Typography variant="h6" color="inherit" noWrap>
           Bananup
         </Typography>
@@ -58,7 +79,8 @@ function NavigationBar(props) {
 
 NavigationBar.propTypes = {
     state: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired
+    actions: PropTypes.object.isRequired,
+    drawerToggle: PropTypes.func.isRequired
 }
 
 

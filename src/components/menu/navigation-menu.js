@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
-import Drawer from '@material-ui/core/Drawer'
+import { Drawer, Hidden } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import ClippedNavigationList from './clipped-navigation-list'
-
+import PropTypes from 'prop-types'
 
 const navItems = [
     {
@@ -20,29 +20,60 @@ const navItems = [
     }
 ]
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     root: {
-        width:300,
+        width:150,
     },
     paper: {
         backgroundColor: '#424242',
         zIndex: 1,
+        width:150,
     },
     under: {
         minHeight: 58,
     },
+    toolbar: theme.mixins.toolbar,
 }));
 
-export default function NavigationMenu() {
+export default function NavigationMenu(props) {
     const classes = useStyles();
+    console.log(props)
     return (
-            <Drawer
-            variant="permanent"
-            anchor="left"
-            className={classes.root}
-            classes={{paper: classes.paper}}>
-                <div className={classes.under}/>
+            <nav className={classes.drawer} aria-label="Mailbox folders">
+            {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+            <Hidden smUp implementation="css">
+              <Drawer
+                variant="temporary"
+                open={props.open}
+                onClose={props.drawerToggle}
+                classes={{
+                  paper: classes.paper,
+                }}
+                ModalProps={{
+                  keepMounted: true, // Better open performance on mobile.
+                }}
+              >
                 <ClippedNavigationList navItems = { navItems}/>
-            </Drawer>
+              </Drawer>
+            </Hidden>
+            <Hidden xsDown implementation="css">
+              <Drawer
+                classes={{
+                  paper: classes.paper,
+                }}
+                variant="permanent"
+                open
+              >
+              <div className={classes.under}/>
+                <ClippedNavigationList navItems = { navItems}/>
+              </Drawer>
+            </Hidden>
+          </nav>
     )
+}
+
+
+NavigationMenu.propTypes = {
+    open: PropTypes.object.isRequired,
+    drawerToggle: PropTypes.func.isRequired
 }
