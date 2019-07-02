@@ -23,7 +23,7 @@ class CategoryListPreview extends React.Component {
             </TopRow>
             <Grid container spacing={3}>
                 {categories && categories.slice(0,6).map((category) => 
-                  <Grid key={category.id} item sm={6} md={3}>
+                  <Grid key={category.id} item xs={6} sm={4} md={2}>
                       <Category category={category}/>
                   </Grid>)}
             </Grid>

@@ -35,7 +35,7 @@ Category.propTypes = {
 const Container = styled.div `
     flex: 0 1 20%;
     margin: auto;
-    min-width: 150px;
+    min-width: 120px;
     max-width: 230px;
     position: relative;
 `
