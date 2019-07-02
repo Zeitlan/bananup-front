@@ -20,7 +20,7 @@ function AddCommentary(props) {
   return (
       <>
         <TextInput
-          label={"Commentaire " + (videoTimestamp ? toMMSS(videoTimestamp) : '0:00')}
+          label={"Comment " + (videoTimestamp ? toMMSS(videoTimestamp) : '0:00')}
           sendFunction = {(text) => {
             return props.actions.addVideoComment(props.videoId, text, videoTimestamp)
           }}

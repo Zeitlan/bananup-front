@@ -52,10 +52,10 @@ class VideoListPreview extends React.Component {
     return (
         <Container>
             <TopRow>
-                <CustomTitle>Vidéos Populaires</CustomTitle>
-                <More href="...">Voir plus..</More>
+                <CustomTitle>Recent videos</CustomTitle>
+                <More href="...">More..</More>
             </TopRow>
-            <VideoList videos={this.state.videos} title={'ocucou'}/>
+            <VideoList videos={this.state.videos}/>
         </Container>
     )
   }

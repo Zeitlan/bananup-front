@@ -21,7 +21,7 @@ class Videos extends React.Component {
     const { videos } = this.state
     return (
         <Container>
-            <CustomTitle>Vidéos</CustomTitle>
+            <CustomTitle>Videos</CustomTitle>
             { videos && <VideoList videos={videos}/> }
         </Container>)
   }

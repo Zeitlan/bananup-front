@@ -41,30 +41,30 @@ class LoginBody extends React.Component {
   render() {
     return (
         <CustomModal>
-            <ModalTitleBox title='Se connecter' _closeModal={this.props._closeModal} />
+            <ModalTitleBox title='Login' _closeModal={this.props._closeModal} />
             <Content>
-                <p>{"Nom d'utilisateur"}</p>
+                <p>{"Username"}</p>
                 <CustomTextField
-                    placeholder="Nom d'utilisateur"
+                    placeholder="Username"
                     classes={{input: 'input'}}
                     type='email'
                     name="email"
                     onChange={this._handleTextFieldChange}
                 />
-                 <p>Mot de passe</p>
+                 <p>Password</p>
                 <CustomTextField
-                    placeholder="Mot de passe"
+                    placeholder="Password"
                     classes={{input: 'input'}}
                     type='password'
                     name="password"
                     onChange={this._handleTextFieldChange}
                 />
                 <SubFormActions>
-                    <a>Mot de passe oublié</a>
-                    <a onClick={this.props.goSignUp} className={'signup'}>{"S'inscrire"}</a>
+                    <a>Forgotten password</a>
+                    <a onClick={this.props.goSignUp} className={'signup'}>{"Sign up"}</a>
                 </SubFormActions>
             </Content>
-            <ModalBottomActions text='Se connecter' action={this._login}/>
+            <ModalBottomActions text='Login' action={this._login}/>
         </CustomModal>
     )
   }

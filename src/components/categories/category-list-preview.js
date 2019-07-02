@@ -18,8 +18,8 @@ class CategoryListPreview extends React.Component {
     return (
         <Container>
             <TopRow>
-                <CustomTitle>Catégories Populaires</CustomTitle>
-                <More to="/categories">Voir plus..</More>
+                <CustomTitle>Popular Categories</CustomTitle>
+                <More to="/categories">More..</More>
             </TopRow>
             <Grid container spacing={3}>
                 {categories && categories.slice(0,6).map((category) => 
