@@ -18,7 +18,7 @@ class CategoryListPreview extends React.Component {
     return (
         <Container>
             <Grid container spacing={3}>
-              {categories && categories.slice(0,4).map((category) => 
+              {categories && categories.map((category) => 
               <Grid key={category.id} item xs={6} sm={4} md={3} lg={2}>
                   <Category category={category}/>
               </Grid>)}
