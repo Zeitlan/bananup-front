@@ -26,7 +26,7 @@ function Commentary(props) {
         <Typography variant="h5">
           {props.data.author.username}
         </Typography>
-        <Typography variant="subtitle2">
+        <Typography variant="body1" style={{whiteSpace: 'pre'}}>
           {props.data.text}
         </Typography>
       </CardContent>
