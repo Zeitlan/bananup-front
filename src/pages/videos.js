@@ -1,30 +1,38 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useState, useEffect } from 'react'
 
 import { withContext } from '../context'
-import VideoList from '../components/videos/video-list'
+import { makeStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 
-@withContext(['categories'],['getCategoryVideos'])
-class Videos extends React.Component {
-  state = {
-    videos: undefined
+import VideoList from '../components/videos/video-list'
+import CustomTitle from '../components/display/custom-title'
+
+const useStyles = makeStyles(theme => ({
+  main: {
+    marginLeft: 20,
+    [theme.breakpoints.down('xs')]: {
+      marginLeft: 0,
+    },
+
   }
-  componentDidMount() {
-    const { categoryId } = this.props
-    const {actions: {getCategoryVideos}} = this.props
+}))
+
+function Videos(props) {
+  const [videos, videosSet] = useState(undefined)
+  const classes = useStyles()
+  useEffect(() => {
+    const { categoryId } = props
+    const { actions: { getCategoryVideos } } = props
     getCategoryVideos(categoryId).then(json => {
-      this.setState({videos: json.videos})
+      videosSet(json.videos)
     })
-  }
-  render() {
-    const { videos } = this.state
-    return (
-        <Container>
-            <CustomTitle>Videos</CustomTitle>
-            { videos && <VideoList videos={videos}/> }
-        </Container>)
-  }
+  }, [])
+
+  return (
+    <div className={classes.main}>
+      <CustomTitle>Videos</CustomTitle>
+      {videos && <VideoList videos={videos} />}
+    </div>)
 }
 
 Videos.propTypes = {
@@ -32,11 +40,5 @@ Videos.propTypes = {
   state: PropTypes.object.isRequired,
   categoryId: PropTypes.string.isRequired
 }
-const Container = styled.div`
-`
 
-const CustomTitle = styled.h2`
-    color: #969595;
-`
-
-export default Videos
+export default withContext(['categories'], ['getCategoryVideos'])(Videos)

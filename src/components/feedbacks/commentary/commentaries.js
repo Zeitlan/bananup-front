@@ -10,6 +10,7 @@ const useStyles = makeStyles(() => ({
   root: {
     overflow: 'auto',
     maxHeight: '80vh',
+    marginTop: 20,
   },
   item: {
     paddingTop: 0,

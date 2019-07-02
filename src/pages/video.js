@@ -8,8 +8,12 @@ import Comments from '../components/feedbacks/commentary/commentaries'
 import AddComment from '../components/feedbacks/commentary/add-commentary'
 import { withContext } from '../context'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   root: {
+    marginBottom: 20,
+    [theme.breakpoints.down('sm')]: {
+      margin: 0
+    }
   },
   videoContainer: {
     position: 'relative',
@@ -46,7 +50,7 @@ function Video(props) {
   }, []);
   return (
     <div className={classes.root}>
-      <Grid container spacing={4}>
+      <Grid container spacing={3}>
         <Grid item xs={12} lg={8}>
           <Grid container>
             <Grid item xs={12} lg={12}>
