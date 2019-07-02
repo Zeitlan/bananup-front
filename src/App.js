@@ -10,9 +10,11 @@ import Home from './pages/home'
 import Video from './pages/video'
 import Categories from './pages/categories'
 import Videos from './pages/videos'
+import CookieBanner from './components/privacy/cookie-banner'
 import { Router } from "@reach/router"
 import { SnackbarProvider } from 'notistack'
 import Toolbar from '@material-ui/core/Toolbar';
+import PrivacyPolicy from './components/privacy/privacy';
 
 
 const useStyles = makeStyles(theme => ({
@@ -37,6 +39,7 @@ function App() {
         <WithThemes>
             <SnackbarProvider>
             <div>
+              <CookieBanner/>
               <header>
                 <NavigationBar open={mobileOpen} drawerToggle={handleDrawerToggle}/>
                 <NavigationMenu open={mobileOpen} drawerToggle={handleDrawerToggle}/>
@@ -48,6 +51,7 @@ function App() {
                   <Video path="/video/:videoId"/>
                   <Videos path="/categorie/:categoryId"/>
                   <Categories path="/categories"/>
+                  <PrivacyPolicy path="/privacy"/>
                 </Router>
               </div>
             </div>

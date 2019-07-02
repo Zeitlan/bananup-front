@@ -3,13 +3,14 @@ import appConfig from '../../app-config'
 export default (object) => {
     return {
         checkLogin: async () => {
-            var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, "$1");
-            if (cookieValue) {
-                object.setState({key: cookieValue})
+            let access = object.actions.checkCookieAccess()
+            let token = object.actions.accessCookie('token', access)
+            if (token) {
+                object.setState({key: token})
             }
         },
         logout: async () => {
-            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+            object.actions.resetCookie('token')
             object.setState({key: undefined})
         },
         login: async (username, password) => {

@@ -22,7 +22,6 @@ class SignupBody extends React.Component {
     const { actions: { signup } } = this.props
     const { username, email, password, password2 } = this.state
     signup(username, email, password, password2).then((error) => {
-      console.log(error)
       if (error === undefined) {
         this.props._closeModal()
       } else {

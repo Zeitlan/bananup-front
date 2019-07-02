@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NavigationMenu(props) {
     const classes = useStyles();
-    console.log(props)
     return (
             <nav className={classes.drawer} aria-label="Website navigator">
             {/* The implementation can be swapped with js to avoid SEO duplication of links. */}

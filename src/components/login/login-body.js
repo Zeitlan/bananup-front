@@ -23,7 +23,6 @@ class LoginBody extends React.Component {
     const { actions: { login } } = this.props
     const { email, password } = this.state
     login(email, password).then((error) => {
-      console.log(error)
       if (error === undefined) {
         this.props._closeModal()
       }
