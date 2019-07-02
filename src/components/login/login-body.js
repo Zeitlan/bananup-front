@@ -38,11 +38,17 @@ class LoginBody extends React.Component {
         [e.target.name]: e.target.value
     });
   }
+
+  _handleKeyDown = (e ) => {
+      if (e.key === 'Enter'){
+          this._login()
+      }
+  }
   render() {
     return (
         <CustomModal>
             <ModalTitleBox title='Login' _closeModal={this.props._closeModal} />
-            <Content>
+            <Content onKeyDown={this._handleKeyDown}>
                 <p>{"Username"}</p>
                 <CustomTextField
                     placeholder="Username"

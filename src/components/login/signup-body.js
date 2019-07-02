@@ -35,12 +35,17 @@ class SignupBody extends React.Component {
         [e.target.name]: e.target.value
     });
   }
+  _handleKeyDown = (e) => {
+      if (e.key === 'Enter'){
+          this._signUp()
+      }
+  }
 
   render() {
     return (
         <CustomModal>
-            <ModalTitleBox title='Sign up' _closeModal={this.props._closeModal} />
-            <Content>
+            <ModalTitleBox title='Sign up' _closeModal={this.props._closeModal}/>
+            <Content onKeyDown={this._handleKeyDown}>
 
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
