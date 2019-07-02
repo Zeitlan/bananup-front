@@ -7,12 +7,14 @@ import shareActions from './actions/share'
 import categoryActions from './actions/category'
 import videoActions from './actions/video'
 import commentActions from './actions/comment'
+import cookieActions from './actions/cookie'
 export class ContextProvider extends React.PureComponent {
     state = {
         ytPlayer: undefined,
         key: undefined,
         comments: undefined,
         videoId: undefined,
+        allowCookies: false,
     }
 
     actions = {
@@ -21,7 +23,8 @@ export class ContextProvider extends React.PureComponent {
         ...categoryActions(this),
         ...playerActions(this),
         ...videoActions(this),
-        ...commentActions(this)
+        ...commentActions(this),
+        ...cookieActions(this),
     }
 
     render () {

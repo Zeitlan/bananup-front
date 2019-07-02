@@ -40,7 +40,6 @@ class ShareForm extends React.Component {
     const { link, name, description , category } = this.state
     let idVideo = this._getIdFromYouTubeVideo(link)
     sendSharedVideo(idVideo, name, description , category).then((error) => {
-      console.log(error)
       if (error === undefined) {
         this.props._closeModal()
       }
