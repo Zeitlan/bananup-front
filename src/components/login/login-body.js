@@ -8,7 +8,9 @@ import { FilledInput } from '@material-ui/core'
 import ModalTitleBox from '../modal/modal-title-box';
 import ModalBottomActions from '../modal/modal-bottom-actions';
 import { withContext } from '../../context'
+import { withSnackbar } from 'notistack';
 
+@withSnackbar
 @withContext([],['login'])
 class LoginBody extends React.Component {
 
@@ -24,6 +26,9 @@ class LoginBody extends React.Component {
       console.log(error)
       if (error === undefined) {
         this.props._closeModal()
+      }
+      else {
+          this.props.enqueueSnackbar(JSON.stringify(error, null, 2), { variant: "error"})
       }
     })
   }
@@ -69,7 +74,8 @@ class LoginBody extends React.Component {
 LoginBody.propTypes = {
     actions: PropTypes.object.isRequired,
     _closeModal: PropTypes.func.isRequired,
-    goSignUp: PropTypes.func.isRequired
+    goSignUp: PropTypes.func.isRequired,
+    enqueueSnackbar: PropTypes.func.isRequired
 }
 
 const SubFormActions = styled.div`

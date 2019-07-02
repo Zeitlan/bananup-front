@@ -11,6 +11,7 @@ import Video from './pages/video'
 import Categories from './pages/categories'
 import Videos from './pages/videos'
 import { Router } from "@reach/router"
+import { SnackbarProvider } from 'notistack'
 import Toolbar from '@material-ui/core/Toolbar';
 
 
@@ -34,21 +35,23 @@ function App() {
   return (
     <ContextProvider>
         <WithThemes>
-          <div>
-            <header>
-              <NavigationBar open={mobileOpen} drawerToggle={handleDrawerToggle}/>
-              <NavigationMenu open={mobileOpen} drawerToggle={handleDrawerToggle}/>
-            </header>
-            <Toolbar/>
-            <div className={classes.main}>
-              <Router>
-                <Home path="/"/>
-                <Video path="/video/:videoId"/>
-                <Videos path="/categorie/:categoryId"/>
-                <Categories path="/categories"/>
-              </Router>
+            <SnackbarProvider>
+            <div>
+              <header>
+                <NavigationBar open={mobileOpen} drawerToggle={handleDrawerToggle}/>
+                <NavigationMenu open={mobileOpen} drawerToggle={handleDrawerToggle}/>
+              </header>
+              <Toolbar/>
+              <div className={classes.main}>
+                <Router>
+                  <Home path="/"/>
+                  <Video path="/video/:videoId"/>
+                  <Videos path="/categorie/:categoryId"/>
+                  <Categories path="/categories"/>
+                </Router>
+              </div>
             </div>
-          </div>
+          </SnackbarProvider>
         </WithThemes>
   </ContextProvider>)
 }
