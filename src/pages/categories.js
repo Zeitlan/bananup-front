@@ -8,7 +8,7 @@ class Categories extends React.Component {
   render() {
     return (
         <Container>
-            <CustomTitle>Catégories</CustomTitle>
+            <CustomTitle>Categories</CustomTitle>
             <CategoryList/>
         </Container>)
   }

@@ -66,18 +66,18 @@ class ShareForm extends React.Component {
     const { state: {categories}} = this.props
     return (
         <CustomModal>
-            <ModalTitleBox title='Partager une vidéo' _closeModal={this.props._closeModal} />
+            <ModalTitleBox title='Share a video' _closeModal={this.props._closeModal} />
             <Content>
-                <p>{"Titre"}</p>
+                <p>Title</p>
                 <CustomTextField
-                    placeholder="Titre"
+                    placeholder="Title"
                     classes={{input: 'input'}}
                     name="name"
                     onChange={this._handleTextFieldChange}
                 />
-                <p>Lien</p>
+                <p>Like</p>
                 <CustomTextField
-                    placeholder="Lien vers la vidéo"
+                    placeholder="Video's link"
                     classes={{input: 'input'}}
                     name="link"
                     onChange={this._handleTextFieldChange}
@@ -85,13 +85,13 @@ class ShareForm extends React.Component {
                 {link && <VideoPreview videoId={link}/>}
                 <p>Description</p>
                 <CustomTextField
-                    placeholder="Description de la vidéo"
+                    placeholder="Video's description"
                     classes={{input: 'input'}}
                     name="description"
                     onChange={this._handleTextFieldChange}
                 />
                 <CustomFormControl>
-                  <InputLabel classes={{root: "select-label"}}>Categorie</InputLabel>
+                  <InputLabel classes={{root: "select-label"}}>Category</InputLabel>
                   <CustomSelect
                     value={this.state.category}
                     onChange={this._handleTextFieldChange}
@@ -108,7 +108,7 @@ class ShareForm extends React.Component {
                   </CustomSelect>
                 </CustomFormControl>
             </Content>
-            <ModalBottomActions text='Partager la vidéo' action={this._sendSharedVideo}/>
+            <ModalBottomActions text='Share your video' action={this._sendSharedVideo}/>
         </CustomModal>
     )
   }

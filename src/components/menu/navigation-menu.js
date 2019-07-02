@@ -7,15 +7,15 @@ import PropTypes from 'prop-types'
 
 const navItems = [
     {
-        text:"Accueil",
+        text:"Home",
         link:"/"
     },
     {
-        text: "Catégories",
+        text: "Categories",
         link: "/categories"
     },
     {
-        text:"Vidéos",
+        text:"Videos",
         link:"/videos"
     }
 ]
@@ -39,7 +39,7 @@ export default function NavigationMenu(props) {
     const classes = useStyles();
     console.log(props)
     return (
-            <nav className={classes.drawer} aria-label="Mailbox folders">
+            <nav className={classes.drawer} aria-label="Website navigator">
             {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
             <Hidden smUp implementation="css">
               <Drawer

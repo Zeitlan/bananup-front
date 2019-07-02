@@ -17,13 +17,13 @@ class Pitch extends React.Component {
                 <PitchElement>
                     <PitchImg src={upload}/>
                     <PitchSubTitle>SHARE YOUR VIDEOS</PitchSubTitle>
-                    <PitchText>That will permit to Bananup&apos;s community</PitchText>
-                    <PitchText>to help you!</PitchText>
+                    <PitchText>And let Bananup&apos;s community</PitchText>
+                    <PitchText>help you!</PitchText>
                 </PitchElement>
                 <PitchElement>
                     <PitchImg src={customer}/>
                     <PitchSubTitle>RECEIVE OR GIVE ADVICES</PitchSubTitle>
-                    <PitchText>Gain in reputation</PitchText>
+                    <PitchText>Earn reputation</PitchText>
                     <PitchText>thanks to our vote system!</PitchText>
                 </PitchElement>
                 <PitchElement>

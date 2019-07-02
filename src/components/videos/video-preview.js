@@ -16,8 +16,8 @@ class VideoPreview extends React.Component {
               <div className={"video-information"}>
                 <CustomCaption>
                   <div className={"video-title"}>{name}</div>
-                  <div className={"video-subinfo"}>Le {created_at}</div>
-                  <div className={"video-subinfo"}>Par {author.username}</div>
+                  <div className={"video-subinfo"}>{created_at}</div>
+                  <div className={"video-subinfo"}>By {author.username}</div>
                   <div className={"video-subinfo video-category"}> {category.name} </div>
                 </CustomCaption>
               </div>

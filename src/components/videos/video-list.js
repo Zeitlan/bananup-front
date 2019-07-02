@@ -24,7 +24,6 @@ class VideoList extends React.Component {
 // PropTypes
 VideoList.propTypes = {
     videos: PropTypes.array.isRequired,
-    title: PropTypes.string.isRequired
 }
 
 // Styles

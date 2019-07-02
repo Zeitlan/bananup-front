@@ -39,14 +39,14 @@ class SignupBody extends React.Component {
   render() {
     return (
         <CustomModal>
-            <ModalTitleBox title='Inscription' _closeModal={this.props._closeModal} />
+            <ModalTitleBox title='Sign up' _closeModal={this.props._closeModal} />
             <Content>
 
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <p>{"Nom d'utilisateur"}</p>
+                        <p>Username</p>
                         <CustomTextField
-                            placeholder="Nom d'utilisateur"
+                            placeholder="Username"
                             fullWidth={true}
                             classes={{input: 'input'}}
                             name='username'
@@ -54,9 +54,9 @@ class SignupBody extends React.Component {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <p>{"Mail"}</p>
+                        <p>Mail</p>
                         <CustomTextField
-                            placeholder="Email"
+                            placeholder="Mail"
                             fullWidth={true}
                             classes={{input: 'input'}}
                             type='email'
@@ -65,9 +65,9 @@ class SignupBody extends React.Component {
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <p>Mot de passe</p>
+                        <p>Password</p>
                         <CustomTextField
-                            placeholder="Mot de passe"
+                            placeholder="Password"
                             fullWidth={true}
                             classes={{input: 'input'}}
                             type='password'
@@ -76,9 +76,9 @@ class SignupBody extends React.Component {
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <p>Confirmer le mot de passe</p>
+                        <p>Confirm password</p>
                         <CustomTextField
-                            placeholder="Confirmer le Mot de passe"
+                            placeholder="Confirm password"
                             fullWidth={true}
                             classes={{input: 'input'}}
                             type='password'
@@ -88,7 +88,7 @@ class SignupBody extends React.Component {
                     </Grid>
                 </Grid>
             </Content>
-            <ModalBottomActions text="S'inscrire" action={this._signUp}/>
+            <ModalBottomActions text="Sign up" action={this._signUp}/>
         </CustomModal>
     )
   }

@@ -57,7 +57,7 @@ function NavigationBar(props) {
         <div className={classes.leftAligned} >
           {props.state.key ?
             <div>
-              <span className={classes.leftAligned}>Vous êtes connecté !</span>
+              <span className={classes.leftAligned}>Connected !</span>
               <IconButton onClick={() => setOpenShareVideo(true)} className={classes.iconAdd} color="inherit">
                 <AddToQueue color="inherit" />
               </IconButton>
@@ -67,7 +67,7 @@ function NavigationBar(props) {
               
             </div>
             :
-            <Button onClick={() => setOpenLogin(true)} className={classes.leftAligned} color="inherit">Se connecter</Button>
+            <Button onClick={() => setOpenLogin(true)} className={classes.leftAligned} color="inherit">Login</Button>
           }
           <LoginModal open={openLogin} _closeModal={() => setOpenLogin(false)} />
           <ShareVideoModal open={openShareVideo} _closeModal={() => setOpenShareVideo(false)} />
