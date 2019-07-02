@@ -8,7 +8,8 @@ import { FilledInput, Grid } from '@material-ui/core'
 import ModalTitleBox from '../modal/modal-title-box';
 import ModalBottomActions from '../modal/modal-bottom-actions';
 import { withContext } from '../../context'
-
+import { withSnackbar } from 'notistack'
+@withSnackbar
 @withContext([],['signup'])
 class SignupBody extends React.Component {
   state = {
@@ -24,6 +25,8 @@ class SignupBody extends React.Component {
       console.log(error)
       if (error === undefined) {
         this.props._closeModal()
+      } else {
+          this.props.enqueueSnackbar(JSON.stringify(error, null, 2), { variant: "error"})
       }
     })
   }
@@ -95,7 +98,8 @@ class SignupBody extends React.Component {
 SignupBody.propTypes = {
     actions: PropTypes.object.isRequired,
     _closeModal: PropTypes.func.isRequired,
-    goLogin: PropTypes.func.isRequired
+    goLogin: PropTypes.func.isRequired,
+    enqueueSnackbar: PropTypes.func.isRequired
 }
 
 const CustomModal = styled.div`

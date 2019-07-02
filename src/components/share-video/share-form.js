@@ -9,9 +9,11 @@ import ModalTitleBox from '../modal/modal-title-box';
 import ModalBottomActions from '../modal/modal-bottom-actions';
 import { withContext } from '../../context'
 import YouTubePlayer from '../video-player/youtube-player';
+import { withSnackbar } from 'notistack'
 
 let rx = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|&v(?:i)?=))([^#&?]*).*/
 
+@withSnackbar
 @withContext(['categories'],['sendSharedVideo', 'getCategories'])
 class ShareForm extends React.Component {
 
@@ -41,6 +43,9 @@ class ShareForm extends React.Component {
       console.log(error)
       if (error === undefined) {
         this.props._closeModal()
+      }
+      else {
+          this.props.enqueueSnackbar(JSON.stringify(error, null, 2), { variant: "error"})
       }
     })
   }
@@ -114,6 +119,7 @@ ShareForm.propTypes = {
     actions: PropTypes.object.isRequired,
     state: PropTypes.object.isRequired,
     _closeModal: PropTypes.func.isRequired,
+    enqueueSnackbar: PropTypes.func.isRequired
 }
 
 const CustomModal = styled.div`
