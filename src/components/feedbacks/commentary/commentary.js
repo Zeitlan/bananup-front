@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { withContext } from '../../../context'
 import { Card, CardContent, Typography, CardActions, IconButton} from '@material-ui/core'
 import { ThumbUp, ThumbDown } from '@material-ui/icons'
+import { toMMSS } from '../../../utils'
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(() => ({
@@ -12,26 +13,43 @@ const useStyles = makeStyles(() => ({
   },
   leftActions: {
     marginRight: 'auto',
+  },
+  topInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  cardAction: {
     marginLeft: 10,
+    marginRight: 10,
   }
 }))
 
 function Commentary(props) {
   const classes = useStyles()
   const { videoId } = props.state
-  const { id } = props.data
+  const { id, video_time } = props.data
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography variant="h5">
+        <div className={classes.topInfo}>
+
+        <Typography variant="h5" className={classes.leftActions}>
           {props.data.author.username}
         </Typography>
+        {
+          (video_time !== undefined && video_time !== null ?
+            <Typography>
+              {toMMSS(video_time)}
+            </Typography>
+            : null)
+        }
+        </div>
         <Typography variant="body1" style={{whiteSpace: 'pre'}}>
           {props.data.text}
         </Typography>
       </CardContent>
 
-      <CardActions>
+      <CardActions className={classes.cardAction}>
         <Typography color="primary" variant="caption" className={classes.leftActions}>
           {props.data.num_vote_up	- props.data.num_vote_down}
         </Typography>
@@ -49,6 +67,7 @@ function Commentary(props) {
 Commentary.propTypes = {
   data: PropTypes.shape({
     id: PropTypes.number.isRequired,
+    video_time: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired,
     author: PropTypes.shape({
       username: PropTypes.string.isRequired
