@@ -1,28 +1,30 @@
 import React from 'react'
-import styled from 'styled-components'
 
 import Pitch from '../components/pitch/pitch'
 import CategoryListPreview from '../components/categories/category-list-preview'
 import VideoListPreview from '../components/videos/video-list-preview'
+import { makeStyles } from '@material-ui/core/styles'
 
-class Home extends React.Component {
+const useStyles = makeStyles(theme => ({
+  main: {
+    [theme.breakpoints.down('xs')]: {
+    },
+  },
+    body: {
+      margin: 20,
+    }
+}));
 
-  render() {
-    return (
-        <Container>
-            <Pitch/>
-            <Body>
-              <CategoryListPreview/>
-              <VideoListPreview/>
-            </Body>
-        </Container>)
-  }
+function Home() {
+  const classes = useStyles()
+  return (
+    <div className={classes.main}>
+      <Pitch />
+      <div className={classes.body}>
+        <CategoryListPreview />
+        <VideoListPreview />
+      </div>
+    </div>)
 }
-
-const Container = styled.div`
-`
-const Body = styled.div`
-  margin: 40px;
-`
 
 export default Home

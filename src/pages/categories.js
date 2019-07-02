@@ -1,24 +1,25 @@
 import React from 'react'
-import styled from 'styled-components'
+import { makeStyles } from '@material-ui/core/styles'
 
+import CustomTitle from '../components/display/custom-title'
 import CategoryList from '../components/categories/category-list'
 
-class Categories extends React.Component {
-
-  render() {
-    return (
-        <Container>
-            <CustomTitle>Categories</CustomTitle>
-            <CategoryList/>
-        </Container>)
+const useStyles = makeStyles(theme => ({
+  main: {
+    margin: 20,
+    [theme.breakpoints.down('xs')]: {
+    },
   }
+}));
+
+
+function Categories() {
+  const classes = useStyles()
+  return (
+    <div className={classes.main}>
+      <CustomTitle>Categories</CustomTitle>
+      <CategoryList />
+    </div>)
 }
-
-const Container = styled.div`
-`
-
-const CustomTitle = styled.h2`
-    color: #969595;
-`
 
 export default Categories
