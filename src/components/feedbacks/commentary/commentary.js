@@ -53,12 +53,15 @@ function Commentary(props) {
         <Typography color="primary" variant="caption" className={classes.leftActions}>
           {props.data.num_vote_up	- props.data.num_vote_down}
         </Typography>
-        <IconButton onClick={() => props.actions.addVote(videoId, id, 1)} color="primary">
-          <ThumbUp color="inherit" />
-        </IconButton>
-        <IconButton onClick={() => props.actions.addVote(videoId, id, -1)} color="primary">
-          <ThumbDown color="inherit" />
-        </IconButton>
+        {props.state.key !== undefined && <>
+          <IconButton onClick={() => props.actions.addVote(videoId, id, 1)} color="primary">
+            <ThumbUp color="inherit" />
+          </IconButton>
+          <IconButton onClick={() => props.actions.addVote(videoId, id, -1)} color="primary">
+            <ThumbDown color="inherit" />
+          </IconButton>
+        </>}
+        
       </CardActions>
     </Card>
   )
@@ -79,4 +82,4 @@ Commentary.propTypes = {
   actions: PropTypes.object.isRequired,
 }
 
-export default withContext(['videoId'],['addVote'])(Commentary)
+export default withContext(['videoId', 'key'],['addVote'])(Commentary)

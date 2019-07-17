@@ -33,7 +33,6 @@ export default (object) => {
         const json = await request.json()
         const status = request.status
         if (status === 201) {
-          object.setState({ comments: [json, ...object.state.comments] })
           return json
         }
       }
