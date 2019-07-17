@@ -6,7 +6,20 @@ export default (object) => {
             let access = object.actions.checkCookieAccess()
             let token = object.actions.accessCookie('token', access)
             if (token) {
-                object.setState({key: token})
+                try {
+                    const request = await fetch(appConfig.apiUrl + '/auth/user/', {
+                        headers: {
+                          'Authorization': 'Token ' + token,
+                        },
+                      })
+                    const json = await request.json();
+                    object.setState({user: json});
+                    object.setState({key: token})
+                } catch (error) {
+                    return {
+                        message: 'Erreur : ' + error.message
+                    }
+                }
             }
         },
         logout: async () => {
@@ -22,7 +35,7 @@ export default (object) => {
                         'Accept' : 'application/json'
                     },
                     body: JSON.stringify({
-                        username,
+                        email: username,
                         password,
                     })
                 })

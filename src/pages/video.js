@@ -33,9 +33,13 @@ const useStyles = makeStyles(theme => ({
 
 function Video(props) {
   const { videoId } = props
-  const { comments } = props.state
   const classes = useStyles()
   const [video, videoSet] = useState(undefined);
+  const [comments, commentsSet] = useState(undefined);
+  const updateComments = () => {
+    const { actions: { getVideoComments }} = props
+    getVideoComments(videoId).then(response => commentsSet(response))
+  }
   useEffect(() => {
     if (!video) {
       const { actions: { getVideoInformation }} = props
@@ -44,8 +48,8 @@ function Video(props) {
       })
     }
     if (!comments){
-      const { actions: { getVideoComments }} = props
-      getVideoComments(videoId)
+      updateComments()
+      console.log(videoId)
     }
   }, []);
   return (
@@ -59,7 +63,7 @@ function Video(props) {
               </div>
             </Grid>
             <Grid item xs={12} lg={12}>
-              {props.state.key && video && <AddComment className={classes.addComment} videoId={video.id}/>}
+              {props.state.key && video && <AddComment className={classes.addComment} videoId={video.id} updateComments={updateComments}/>}
             </Grid>
           </Grid>
         </Grid>
@@ -75,6 +79,7 @@ function Video(props) {
 Video.propTypes = {
   videoId: PropTypes.string,
   state: PropTypes.object,
+  actions: PropTypes.object,
 }
 
-export default withContext(['key', 'comments'],['getVideoInformation', 'getVideoComments'])(Video)
+export default withContext(['key' ],['getVideoInformation', 'getVideoComments'])(Video)

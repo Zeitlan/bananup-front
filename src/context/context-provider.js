@@ -12,6 +12,7 @@ export class ContextProvider extends React.PureComponent {
     state = {
         ytPlayer: undefined,
         key: undefined,
+        user: undefined,
         comments: undefined,
         videoId: undefined,
         allowCookies: false,
