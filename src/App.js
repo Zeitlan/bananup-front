@@ -15,6 +15,7 @@ import { Router } from "@reach/router"
 import { SnackbarProvider } from 'notistack'
 import Toolbar from '@material-ui/core/Toolbar';
 import PrivacyPolicy from './components/privacy/privacy';
+import NotFound from './pages/error404';
 
 
 const useStyles = makeStyles(theme => ({
@@ -52,6 +53,7 @@ function App() {
                   <Videos path="/categorie/:categoryId"/>
                   <Categories path="/categories"/>
                   <PrivacyPolicy path="/privacy"/>
+                  <NotFound default/>
                 </Router>
               </div>
             </div>
