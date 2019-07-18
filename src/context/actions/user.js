@@ -26,7 +26,7 @@ export default (object) => {
             object.actions.resetCookie('token')
             object.setState({key: undefined})
         },
-        login: async (username, password) => {
+        login: async (email, password) => {
             try {
                 const request = await fetch(appConfig.authUrl + '/login/', {
                     method: 'POST',
@@ -35,7 +35,7 @@ export default (object) => {
                         'Accept' : 'application/json'
                     },
                     body: JSON.stringify({
-                        email: username,
+                        email: email,
                         password,
                     })
                 })
