@@ -15,7 +15,7 @@ import { Router } from "@reach/router"
 import { SnackbarProvider } from 'notistack'
 import Toolbar from '@material-ui/core/Toolbar';
 import PrivacyPolicy from './components/privacy/privacy';
-import NotFound from './pages/error404';
+import InfoPage from './pages/misc/info-page';
 
 
 const useStyles = makeStyles(theme => ({
@@ -53,7 +53,9 @@ function App() {
                   <Videos path="/categorie/:categoryId"/>
                   <Categories path="/categories"/>
                   <PrivacyPolicy path="/privacy"/>
-                  <NotFound default/>
+                  <InfoPage title="404" message={"Hey, what are you doing here buddy?"} default/>
+                  <InfoPage path="/login/success" title="Congratulations" message={"You just joined Bananup's community!"}/>
+                  <InfoPage path="/login/failure" title="Oops..." message={"Something went wrong... Retry later!"}/>
                 </Router>
               </div>
             </div>

@@ -1,15 +1,17 @@
 import React from 'react'
 
+import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
-import { Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core'
 
 const useStyles = makeStyles(() => ({
   title: {
-    fontSize: 200,
-    textShadow: "2px 3px 8px rgba(13, 13, 13, 1)",
+    fontSize: 100,
+    color: "#747373",
   },
   caption: {
-    fontSize: '100%',
+    fontSize: '120%',
+    color: "#969595",
   },
   main: {
     display: "flex",
@@ -19,17 +21,22 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-function NotFound() {
+function InfoPage(props) {
   const classes = useStyles()
   return (
     <div className={classes.main}>
       <Typography color="primary" className={classes.title}>
-        404
+        {props.title}
       </Typography>
       <Typography variant="caption" color="primary" className={classes.caption}>
-        What are you doing here buddy?
+        {props.message}
       </Typography>
     </div>)
 }
 
-export default NotFound
+InfoPage.propTypes = {
+  title: PropTypes.object.isRequired,
+  message: PropTypes.object.isRequired,
+}
+
+export default InfoPage
