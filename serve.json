@@ -9,7 +9,7 @@
                 },
                 {
                     "key": "Content-Security-Policy",
-                    "value": "default-src https:"
+                    "value": "script-src 'self' 'unsafe-inline'"
                 },
                 {
                     "key": "X-Frame-Options",
