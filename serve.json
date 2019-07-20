@@ -9,7 +9,7 @@
                 },
                 {
                     "key": "Content-Security-Policy",
-                    "value": "script-src 'self' 'unsafe-inline'"
+                    "value": "script-src 'self' 'unsafe-inline' www.youtube.com"
                 },
                 {
                     "key": "X-Frame-Options",
