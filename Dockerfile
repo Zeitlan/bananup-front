@@ -9,4 +9,5 @@ FROM node:12-alpine
 RUN npm install -g serve
 WORKDIR /app
 COPY --from=builder /app/build .
-CMD ["serve", "-p", "80", "-s", "."]
+COPY serve.json .
+CMD ["serve", "-p", "80", "-c", "serve.json", "-s", "."]
