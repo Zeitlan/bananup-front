@@ -2,32 +2,36 @@
 import React from 'react'
 import { Drawer, Hidden } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { Home, VideoLibrary, Category } from '@material-ui/icons'
 import ClippedNavigationList from './clipped-navigation-list'
 import PropTypes from 'prop-types'
 
 const navItems = [
     {
         text:"Home",
-        link:"/"
+        link:"/",
+        icon: <Home color="secondary"/>
     },
     {
         text: "Categories",
-        link: "/categories"
+        link: "/categories",
+        icon: <Category color="secondary"/>
     },
     {
         text:"Videos",
-        link:"/videos"
+        link:"/videos",
+        icon: <VideoLibrary color="secondary"/>
     }
 ]
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width:150,
+        width:180,
     },
     paper: {
         backgroundColor: '#424242',
         zIndex: 1,
-        width:150,
+        width:180,
     },
     under: {
         minHeight: 58,
