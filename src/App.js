@@ -20,7 +20,7 @@ import InfoPage from './pages/misc/info-page';
 
 const useStyles = makeStyles(theme => ({
   main: {
-    marginLeft: 150,
+    marginLeft: 180,
     [theme.breakpoints.down('xs')]: {
       marginLeft: 0,
     },
