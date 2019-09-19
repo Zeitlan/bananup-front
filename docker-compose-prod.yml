@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  web:
+    image: registry.gitlab.com/hermod-io/unknown-front:latest
+    ports:
+      - 127.0.0.1:8080:80
+    env_file: .env.production
+    environment:
+      - PROD=1
+    restart: always

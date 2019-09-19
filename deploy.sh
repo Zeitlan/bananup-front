@@ -32,6 +32,17 @@ echo "ALL_SERVERS ${ALL_SERVERS}"
 # Once inside the server, run updateAndRestart.sh
 for server in "${ALL_SERVERS[@]}"
 do
+  echo "copying file to ${server}"
+  scp -r $DOCKER_FILE \
+	  Makefile \
+	  $ENV_FILE \
+	  root@${server}:/root/${PROJECT_DIR}
+
   echo "deploying to ${server}"
-  ssh root@${server} env CI_COMMIT_SHA=${CI_COMMIT_SHA} env PROJECT_DIR=${PROJECT_DIR} 'bash' < update-restart.sh
+  ssh root@${server} env DEPLOY_USER=${DEPLOY_USER} \
+                     env DEPLOY_TOKEN=${DEPLOY_TOKEN} \
+                     env CI_REGISTRY=${CI_REGISTRY} \
+                     env PROJECT_DIR=${PROJECT_DIR} \
+                     env PROD=${PROD} \
+                     'bash' < update-restart.sh
 done

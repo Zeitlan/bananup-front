@@ -5,8 +5,11 @@ set -e
 
 cd /root/${PROJECT_DIR}
 
-echo "Pulling git"
-git pull origin deployment
-git checkout ${CI_COMMIT_SHA}
+echo ${DEPLOY_TOKEN} | docker login -u ${DEPLOY_USER} ${CI_REGISTRY} --password-stdin
+if [ ${PROD} = 1 ]
+then
+    make prod
+else
+    make beta
+fi
 
-make prod
