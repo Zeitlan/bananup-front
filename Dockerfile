@@ -10,4 +10,6 @@ RUN npm install -g serve
 WORKDIR /app
 COPY --from=builder /app/build .
 COPY serve.json .
-CMD ["serve", "-p", "80", "-c", "serve.json", "-s", "."]
+COPY env2js.sh .
+COPY entrypoint.sh .
+CMD ["./entrypoint.sh"]
