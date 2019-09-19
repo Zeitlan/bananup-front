@@ -4,6 +4,7 @@ stages:
 #  - build
 #  - lint
 #  - test
+  - build-docker
   - deploy
 
 
@@ -39,14 +40,69 @@ stages:
 #  script:
 #    - npm run lint
 
-deploy:
-  image: alpine:3.7
+build-docker:
+  image: docker:18
+  services:
+    - docker:dind
+  stage: build-docker
+  only:
+    - deployment
+  before_script:
+    - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker build --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+
+
+deploy-beta:
+  image: docker:18
+  services:
+    - docker:dind
   stage: deploy
   environment:
-    name: integration
+    name: beta
+    url: https://beta.bananup.co
   only:
     - deployment
   before_script:
     - apk add --no-cache openssh-client bash make
+    - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $CI_REGISTRY
+  variables:
+    DEPLOY_SERVERS: $BETA_SERVERS
+    DOCKER_FILE: docker-compose-beta.yml
+    PROJECT_DIR: $PROJECT_DIR_BETA
+    PROD: 0
+    ENV_FILE: .env.beta
   script:
+    - docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:beta
+    - docker push $CI_REGISTRY_IMAGE:beta
     - bash deploy.sh
+
+
+deploy-prod:
+  image: docker:18
+  services:
+    - docker:dind
+  stage: deploy
+  environment:
+    name: production
+    url: https://bananup.co
+  only:
+    - deployment
+  when: manual
+  before_script:
+    - apk add --no-cache openssh-client bash make
+    - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $CI_REGISTRY
+  variables:
+    DEPLOY_SERVERS: $PROD_SERVERS
+    DOCKER_FILE: docker-compose-prod.yml
+    PROJECT_DIR: $PROJECT_DIR_PROD
+    PROD: 1
+    ENV_FILE: .env.production
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:latest
+    - docker push $CI_REGISTRY_IMAGE:latest
+    - bash deploy.sh
+

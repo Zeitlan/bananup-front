@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  web:
+    image: registry.gitlab.com/hermod-io/unknown-front:beta
+    ports:
+      - 127.0.0.1:8081:80
+    env_file: .env.beta
+    environment:
+      - BETA=1
+    restart: always
