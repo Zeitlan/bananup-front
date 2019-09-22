@@ -4,19 +4,8 @@ import Category from './category'
 import { Grid } from '@material-ui/core'
 import { Link } from '@reach/router'
 import { useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import { PREVIEW_CATEGORIES } from './category-queries.js'
 
-
-
-const PREVIEW_CATEGORIES = gql`
-  {
-    allCategories {
-      id,
-      name,
-      imageUrl,
-    }
-  }
-`;
 
 function CategoryListPreview()  {
   const { loading, error, data } = useQuery(PREVIEW_CATEGORIES);

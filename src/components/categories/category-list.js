@@ -1,11 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import Category from './category'
-import { withContext } from '../../context'
 import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
 
-@withContext(['categories'],['getCategories'])
+
 class CategoryListPreview extends React.Component {
     
   componentDidMount() {
