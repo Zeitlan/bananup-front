@@ -1,41 +1,43 @@
 import React from 'react'
 import styled from 'styled-components'
 import Category from './category'
-import { withContext } from '../../context'
 import { Grid } from '@material-ui/core'
-import PropTypes from 'prop-types'
 import { Link } from '@reach/router'
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
 
-@withContext(['categories'],['getCategories'])
-class CategoryListPreview extends React.Component {
-    
-  componentDidMount() {
-    const { actions: { getCategories }} = this.props
-    getCategories()
-  }
-  render() {
-    const { state: {categories}} = this.props
-    return (
-        <Container>
-            <TopRow>
-                <CustomTitle>Popular Categories</CustomTitle>
-                <More to="/categories">More..</More>
-            </TopRow>
-            <Grid container spacing={3}>
-                {categories && categories.slice(0,6).map((category) => 
-                  <Grid key={category.id} item xs={6} sm={4} md={2}>
-                      <Category category={category}/>
-                  </Grid>)}
-            </Grid>
-        </Container>
-    )
-  }
-}
 
-// PropTypes
-CategoryListPreview.propTypes = {
-  actions: PropTypes.object.isRequired,
-  state: PropTypes.object.isRequired
+
+const PREVIEW_CATEGORIES = gql`
+  {
+    allCategories {
+      id,
+      name,
+      imageUrl,
+    }
+  }
+`;
+
+function CategoryListPreview()  {
+  const { loading, error, data } = useQuery(PREVIEW_CATEGORIES);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+  console.log(data);
+  return (
+      <Container>
+          <TopRow>
+              <CustomTitle>Popular Categories</CustomTitle>
+              <More to="/categories">More..</More>
+          </TopRow>
+          <Grid container spacing={3}>
+              {data.allCategories.slice(0,6).map((category) => 
+                <Grid key={category.id} item xs={6} sm={4} md={2}>
+                    <Category category={category}/>
+                </Grid>)}
+          </Grid>
+      </Container>
+  )
 }
 
 // Styles

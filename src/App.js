@@ -2,7 +2,9 @@
 import React from 'react'
 import { ContextProvider } from './context'
 import { makeStyles } from '@material-ui/core/styles'
+import { ApolloProvider } from '@apollo/react-hooks';
 
+import client from './context/apollo-client'
 import WithThemes from './theme'
 import NavigationBar from './components/menu/navigation-bar'
 import NavigationMenu  from './components/menu/navigation-menu'
@@ -37,6 +39,7 @@ function App() {
   const classes = useStyles();
   return (
     <ContextProvider>
+      <ApolloProvider client={client}>
         <WithThemes>
             <SnackbarProvider>
             <div>
@@ -61,6 +64,7 @@ function App() {
             </div>
           </SnackbarProvider>
         </WithThemes>
+      </ApolloProvider>
   </ContextProvider>)
 }
 

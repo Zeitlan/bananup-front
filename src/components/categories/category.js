@@ -11,13 +11,13 @@ class Category extends React.Component {
     return (
         <Container onMouseEnter={() => this.setState({hover: true})} onMouseLeave={() => this.setState({hover: false})}>
             <Link to={"/categorie/"+category.id}>
-              <ImgContainer hover={this.state.hover} src={category.image_url}/>
+              <ImgContainer hover={this.state.hover} src={category.imageUrl}/>
             </Link>
             <CategoryDescription>
               <div className={"category-information"}>
                 <CustomCaption>
                   <div>{category.name}</div>
-                  <div className={"category-subinfo"}>{category.videos_count} vidéos</div>
+                  <div className={"category-subinfo"}>[TODO GRAPHQL] vidéos</div>
                 </CustomCaption>
               </div>
             </CategoryDescription>
