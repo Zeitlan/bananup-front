@@ -16,8 +16,10 @@
     "apollo-boost": "^0.4.4",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-client": "^2.6.4",
+    "apollo-link-context": "^1.0.19",
     "apollo-link-http": "^1.5.16",
     "apollo-link-schema": "^1.2.4",
+    "apollo-link-state": "^0.4.2",
     "babel-eslint": "10.0.1",
     "babel-jest": "24.7.1",
     "babel-loader": "8.0.5",
@@ -71,7 +73,8 @@
     "workbox-webpack-plugin": "4.2.0"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "NODE_ENV=dev node scripts/start.js",
+    "start prod": "NODE_ENV=production node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
