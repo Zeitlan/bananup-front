@@ -11,4 +11,3 @@ export const PREVIEW_CATEGORIES = gql`
     }
   }
 `
-
