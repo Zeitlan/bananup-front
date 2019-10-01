@@ -6,12 +6,11 @@ import customer from './customer.png'
 import improvement from './improvement.png'
 import esportBackground from './esport-background.jpg'
 class Pitch extends React.Component {
-
   render() {
     return (
         <Container>
             <BackgroundContainer>
-                <PitchTitle>IMPROVE YOUR <ImportantText>GAMING SKILLS</ImportantText> EASILY<br/>THANKS TO <ImportantText>BANANUP</ImportantText></PitchTitle>
+                <PitchTitle>IMPROVE YOUR <ImportantText>GAMING SKILLS</ImportantText> EASILY<br/>THANKS TO <ImportantText>BANANUP</ImportantText> (Soon available...)</PitchTitle>
             </BackgroundContainer>
             <PitchRow>
                 <PitchElement>
@@ -77,8 +76,14 @@ const PitchTitle = styled.h2`
     color: #F2F2F2;
     justify-content:center;
     align-content:center;
-    font-size: 230%;
+    font-size: 42px;
     font-weight: bold;
+    @media (max-width: 600px) {
+        font-size: 26px;
+    }
+    @media (max-width: 960px) {
+        font-size: 34px;
+    }
 `
 
 const ImportantText = styled.span`
