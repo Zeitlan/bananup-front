@@ -9,7 +9,7 @@
                 },
                 {
                     "key": "Content-Security-Policy",
-                    "value": "script-src 'self'  www.youtube.com https://s.ytimg.com *.hotjar.com"
+                    "value": "script-src 'self'  www.youtube.com https://s.ytimg.com *.hotjar.com 'unsafe-eval' 'unsafe-inline'"
                 },
                 {
                     "key": "X-Frame-Options",
