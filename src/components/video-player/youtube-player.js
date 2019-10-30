@@ -1,22 +1,14 @@
 /* eslint-disable no-console */
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import YouTube from 'react-youtube'
 
-import { withContext } from '../../context'
-
 
 function YouTubePlayer(props) {
 
-  const { actions: { setYTPlayer }} = props
+  const { videoId, setYtPlayer } = props
   
-  useEffect(() => {
-    const { actions: { unsetYTPlayer }} = props
-    return unsetYTPlayer
-  }, []);
-
-  const { videoId } = props
   return (
       <Container>
           <CustomPlayer
@@ -41,7 +33,8 @@ function YouTubePlayer(props) {
               autohide: 1
               }}}
           onReady = {(event) => {
-            setYTPlayer(event.target)
+            if (setYtPlayer)
+              setYtPlayer(event.target)
           }}
           className={props.className}/>
       </Container>
@@ -52,7 +45,7 @@ function YouTubePlayer(props) {
 YouTubePlayer.propTypes = {
     videoId: PropTypes.string.isRequired,
     className: PropTypes.string.isRequired,
-    actions: PropTypes.object.isRequired
+    setYtPlayer: PropTypes.func.isRequired,
 }
 
 // Styles
@@ -60,4 +53,4 @@ const CustomPlayer = styled(YouTube)`
 `
 const Container = styled.div`
 `
-export default withContext([],['setYTPlayer', 'unsetYTPlayer'])(YouTubePlayer)
+export default YouTubePlayer

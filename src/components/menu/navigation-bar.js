@@ -1,9 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { Typography, Toolbar, AppBar, Button, IconButton } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { AddToQueue, ExitToApp, Menu } from '@material-ui/icons';
 import LoginModal from '../login'
-import { withContext } from '../../context'
 import PropTypes from 'prop-types'
 import ShareVideoModal from '../share-video';
 
@@ -36,9 +35,17 @@ function NavigationBar(props) {
   const classes = useStyles();
   const [openLogin, setOpenLogin] = useState(false);
   const [openShareVideo, setOpenShareVideo] = useState(false);
+  const [connected, setConnected] = useState(localStorage.getItem('token') != undefined)
+
   useEffect(() => {
-    props.actions.checkLogin()
-  }, [])
+    if (!connected)
+      localStorage.removeItem('token')
+  }, [connected])
+
+  useEffect(() => {
+    setConnected(localStorage.getItem('token'))
+  },[openLogin])
+
   return (
       <AppBar className={classes.root} position="fixed" color="primary">
       <Toolbar>
@@ -55,13 +62,13 @@ function NavigationBar(props) {
           Bananup
         </Typography>
         <div className={classes.leftAligned} >
-          {props.state.key ?
+          {connected ?
             <div>
               <span className={classes.leftAligned}>Connected !</span>
               <IconButton onClick={() => setOpenShareVideo(true)} className={classes.iconAdd} color="inherit">
                 <AddToQueue color="inherit" />
               </IconButton>
-              <IconButton onClick={() => props.actions.logout()} className={classes.iconAdd} color="inherit">
+              <IconButton onClick={() => setConnected(false)} className={classes.iconAdd} color="inherit">
                 <ExitToApp color="inherit" />
               </IconButton>
               
@@ -78,10 +85,8 @@ function NavigationBar(props) {
 }
 
 NavigationBar.propTypes = {
-    state: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired,
-    drawerToggle: PropTypes.func.isRequired
+    drawerToggle: PropTypes.func.isRequired,
 }
 
 
-export default withContext(['key'],['checkLogin', 'logout'])(NavigationBar)
+export default NavigationBar

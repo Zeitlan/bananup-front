@@ -6,16 +6,14 @@ import PropTypes from 'prop-types'
 import { Button } from '@material-ui/core'
 
 
-class ModalBottomActions extends React.Component {
-  render() {
+function ModalBottomActions(props) {
     return (
         <BottomActions>
-            <CustomButton onClick={() => this.props.action()} classes={{root: 'root'}} color="primary" variant="contained">
-                {this.props.text}
+            <CustomButton onClick={() => props.action()} classes={{root: 'root'}} color="primary" variant="contained">
+                {props.text}
             </CustomButton>
         </BottomActions>
     )
-  }
 }
 
 

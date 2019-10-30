@@ -1,10 +1,16 @@
 /* eslint-disable no-console */
 import React, {useEffect, useState} from 'react'
+
+import { useMutation } from '@apollo/react-hooks'
+import { ADD_COMMENT } from '@/queries/comments'
+import { GET_VIDEO_COMMENTS } from '@/queries/videos'
+
 import PropTypes from 'prop-types'
-import { withContext } from '../../../context'
 import { toMMSS } from '../../../utils'
 import { Card, CardContent, Typography, Button, Input, CardActions } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/styles'
+import { useSnackbar } from 'notistack'
+
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -30,20 +36,52 @@ function AddCommentary(props) {
   const [videoTick, videoTickSet] = useState(undefined);
   const [videoTimestamp, videoTimestampSet] = useState(undefined);
   const [textComment, textCommentSet] = useState(undefined)
-  
-  const handleInputChange = e => {
+
+  const { enqueueSnackbar } = useSnackbar()
+  const [addComment, {
+    error: mutationError }
+  ] = useMutation(ADD_COMMENT)
+
+  const { ytPlayer } = props
+  const _handleInputChange = e => {
     const { value } = e.target
     textCommentSet(value)
   }
 
+  const _sendComment = () => {
+    console.log('Add comment')
+    console.log(textComment)
+    addComment(
+      {
+        variables: { 
+          input: {
+            text: textComment,
+            video: props.videoId,
+            videoTime: videoTimestamp
+          }
+        },
+        refetchQueries: [{
+          query: GET_VIDEO_COMMENTS,
+          variables: {
+            id: props.videoId
+          }
+        }]
+      }
+    )
+    if (mutationError){
+      enqueueSnackbar(JSON.stringify(mutationError, null, 2), { variant: "error"})
+    }
+    textCommentSet("")
+  }
+
   useEffect(() => {
-    if (videoTick === undefined && props.state.ytPlayer !== undefined) {
+    if (videoTick === undefined && ytPlayer !== undefined) {
       videoTickSet(setInterval(() => {
-        videoTimestampSet(props.state.ytPlayer.getCurrentTime())
+        videoTimestampSet(ytPlayer.getCurrentTime())
       }, 1000))
     }
     return () => clearInterval(videoTick)
-  }, [props.state.ytPlayer, videoTick]);
+  }, [ytPlayer, videoTick]);
   return (
 
     <Card className={classes.root}>
@@ -51,7 +89,7 @@ function AddCommentary(props) {
         <div className={classes.topInfo}>
 
         <Typography variant="h5" className={classes.leftActions}>
-          {props.state.user ? props.state.user.username : 'You.'}
+          You.
         </Typography>
         {
           (videoTimestamp !== undefined && videoTimestamp !== null ?
@@ -68,7 +106,7 @@ function AddCommentary(props) {
             multiline
             fullWidth={true}
             rowsMax="4"
-            onChange={handleInputChange}
+            onChange={_handleInputChange}
             value={textComment}
         >
 
@@ -77,8 +115,7 @@ function AddCommentary(props) {
       <CardActions>
         <Button 
           onClick={() => {
-            props.actions.addVideoComment(props.videoId, textComment, videoTimestamp).then(() => props.updateComments())
-            textCommentSet("")
+            _sendComment()
           }}
           color="primary"
           className={classes.cardAction}
@@ -91,10 +128,9 @@ function AddCommentary(props) {
 }
 // PropTypes
 AddCommentary.propTypes = {
-    state: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired,
     videoId: PropTypes.number.isRequired,
     updateComments: PropTypes.func.isRequired,
+    ytPlayer: PropTypes.object
 }
 
-export default withContext(['ytPlayer', 'user'],['addVideoComment'])(AddCommentary)
+export default AddCommentary

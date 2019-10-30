@@ -6,21 +6,18 @@ import { Modal } from '@material-ui/core'
 
 import ContactBody from './contact-body'
 
-class ContactModal extends React.Component {
+function ContactModal(props){
 
-  _closeModal = () => {
-    this.props._closeModal()
+  const _closeModal = () => {
+    props._closeModal()
   }
-
-  render() {
-    return (
+  return (
     <Modal 
-      open={this.props.open} 
-      onClose={this._closeModal}>
-          <ContactBody _closeModal={this._closeModal}/>
+      open={props.open} 
+      onClose={_closeModal}>
+          <ContactBody _closeModal={_closeModal}/>
     </Modal>
-    )
-  }
+  )
 }
 
 ContactModal.propTypes = {

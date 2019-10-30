@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { Modal } from '@material-ui/core'
@@ -7,31 +7,24 @@ import SignupBody from './signup-body'
 import LoginBody from './login-body'
 
 
-class LoginModal extends React.Component {
+function LoginModal(props) {
 
-  state = {
-    displaying: 1,
+  const [displaying, setDisplaying] = useState(1)
+  const _closeModal = () => {
+    props._closeModal()
+    setDisplaying(1)
   }
-
-  _closeModal = () => {
-    this.props._closeModal()
-    this.setState({displaying: 1})
-  }
-
-  render() {
-    const { displaying } = this.state
-    return (
-    <Modal 
-      open={this.props.open} 
-      onClose={this._closeModal}>
-        {displaying === 1 ? 
-          <LoginBody goSignUp={() => this.setState({displaying: 2})} _closeModal={this._closeModal}/> 
-          : 
-          <SignupBody goLogin={() => this.setState({displaying: 1})} _closeModal={this._closeModal}/>
-        }
-    </Modal>
-    )
-  }
+  return (
+  <Modal 
+    open={props.open} 
+    onClose={_closeModal}>
+      {displaying === 1 ? 
+        <LoginBody goSignUp={() => setDisplaying(2)} _closeModal={_closeModal}/> 
+        : 
+        <SignupBody goLogin={() => setDisplaying(1)} _closeModal={_closeModal}/>
+      }
+  </Modal>
+  )
 }
 
 LoginModal.propTypes = {

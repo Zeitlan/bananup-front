@@ -77,6 +77,6 @@ export default function NavigationMenu(props) {
 
 
 NavigationMenu.propTypes = {
-    open: PropTypes.object.isRequired,
+    open: PropTypes.bool.isRequired,
     drawerToggle: PropTypes.func.isRequired
 }

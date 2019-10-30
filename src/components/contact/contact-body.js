@@ -8,11 +8,10 @@ import ModalTitleBox from '../modal/modal-title-box';
 import ModalBottomActions from '../modal/modal-bottom-actions';
 
 
-class ContactBody extends React.Component {
-  render() {
+function ContactBody(props) {
     return (
         <CustomModal>
-            <ModalTitleBox title='Contact' _closeModal={this.props._closeModal} />
+            <ModalTitleBox title='Contact' _closeModal={props._closeModal} />
             <Content>
                 <p>{"Titre"}</p>
                 <CustomTextField
@@ -27,10 +26,9 @@ class ContactBody extends React.Component {
                     rows="4"
                 />
             </Content>
-            <ModalBottomActions text='Envoyer' action={this.props._closeModal}/>
+            <ModalBottomActions text='Envoyer' action={props._closeModal}/>
         </CustomModal>
     )
-  }
 }
 
 

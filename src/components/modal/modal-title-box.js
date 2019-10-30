@@ -6,17 +6,15 @@ import PropTypes from 'prop-types'
 import Close from '@material-ui/icons/Close'
 
 
-class ModalTitleBox extends React.Component {
-  render() {
+function ModalTitleBox(props) {
     return (
         <TitleBox>
-            <CustomIcon  onClick={() => this.props._closeModal()}>
+            <CustomIcon  onClick={() => props._closeModal()}>
                 <Close className={"back"} />
             </CustomIcon>
-            <h2 className={"title"}>{this.props.title}</h2>
+            <h2 className={"title"}>{props.title}</h2>
         </TitleBox>
     )
-  }
 }
 
 

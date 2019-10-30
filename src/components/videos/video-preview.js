@@ -3,28 +3,25 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { Link } from '@reach/router'
 
-class VideoPreview extends React.Component {
-    
-  render() {
-    const { name, created_at, author, category, link, id } = this.props.video
-    return (
-        <Container>
-            <Link to={"/video/"+id}>
-              <ImgContainer src={"https://img.youtube.com/vi/" + link + "/0.jpg"}/>
-            </Link>
-            <VideoDescription>
-              <div className={"video-information"}>
-                <CustomCaption>
-                  <div className={"video-title"}>{name}</div>
-                  <div className={"video-subinfo"}>{created_at}</div>
-                  <div className={"video-subinfo"}>By {author.username}</div>
-                  <div className={"video-subinfo video-category"}> {category.name} </div>
-                </CustomCaption>
-              </div>
-            </VideoDescription>
-        </Container>
-    )
-  }
+function VideoPreview(props) { 
+  const { name, createdAt, author, category, link, id } = props.video
+  return (
+      <Container>
+          <Link to={"/video/"+id}>
+            <ImgContainer src={"https://img.youtube.com/vi/" + link + "/0.jpg"}/>
+          </Link>
+          <VideoDescription>
+            <div className={"video-information"}>
+              <CustomCaption>
+                <div className={"video-title"}>{name}</div>
+                <div className={"video-subinfo"}>{createdAt}</div>
+                <div className={"video-subinfo"}>By {author.username}</div>
+                <div className={"video-subinfo video-category"}> {category.name} </div>
+              </CustomCaption>
+            </div>
+          </VideoDescription>
+      </Container>
+  )
 }
 
 // PropTypes
@@ -71,6 +68,5 @@ const CustomCaption = styled.div`
 const ImgContainer = styled.img`
     border-radius: 4%;
     max-width: 100%;
-    max-height: 100%;
 `
 export default VideoPreview

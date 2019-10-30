@@ -35,8 +35,8 @@ function InfoPage(props) {
 }
 
 InfoPage.propTypes = {
-  title: PropTypes.object.isRequired,
-  message: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
 }
 
 export default InfoPage
