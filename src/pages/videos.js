@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
-
-import { withContext } from '../context'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 
 import VideoList from '../components/videos/video-list'
 import CustomTitle from '../components/display/custom-title'
+import { useQuery } from 'react-apollo'
+import { GET_VIDEO_CATEGORY } from '@/queries/categories'
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -18,27 +18,26 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function Videos(props) {
-  const [videos, videosSet] = useState(undefined)
   const classes = useStyles()
-  useEffect(() => {
-    const { categoryId } = props
-    const { actions: { getCategoryVideos } } = props
-    getCategoryVideos(categoryId).then(json => {
-      videosSet(json.videos)
-    })
-  }, [])
+  const { categoryId } = props
 
+  const { loading, error, data } = useQuery(GET_VIDEO_CATEGORY,  {
+      variables: { id: categoryId },
+    });
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
+  console.log(data)
   return (
     <div className={classes.main}>
       <CustomTitle>Videos</CustomTitle>
-      {videos && <VideoList videos={videos} />}
+      <VideoList videos={data.category.videos} />
     </div>)
 }
 
 Videos.propTypes = {
-  actions: PropTypes.object.isRequired,
-  state: PropTypes.object.isRequired,
-  categoryId: PropTypes.string.isRequired
+  categoryId: PropTypes.string,
 }
 
-export default withContext(['categories'], ['getCategoryVideos'])(Videos)
+export default Videos

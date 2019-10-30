@@ -5,21 +5,14 @@ import PropTypes from 'prop-types'
 import { Modal } from '@material-ui/core'
 import ShareForm from './share-form'
 
-class ShareVideoModal extends React.Component {
-
-  _closeModal = () => {
-    this.props._closeModal()
-  }
-
-  render() {
-    return (
+function ShareVideoModal(props) {
+  return (
     <Modal 
-      open={this.props.open} 
-      onClose={this._closeModal}>
-        <ShareForm _closeModal={this._closeModal}/>
+      open={props.open} 
+      onClose={props._closeModal}>
+        <ShareForm _closeModal={props._closeModal}/>
     </Modal>
-    )
-  }
+  )
 }
 
 ShareVideoModal.propTypes = {

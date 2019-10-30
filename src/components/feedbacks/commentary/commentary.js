@@ -1,11 +1,15 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withContext } from '../../../context'
+
+import { useMutation } from '@apollo/react-hooks'
+import { ADD_VOTE } from '@/queries/comments'
+
 import { Card, CardContent, Typography, CardActions, IconButton} from '@material-ui/core'
 import { ThumbUp, ThumbDown } from '@material-ui/icons'
-import { toMMSS } from '../../../utils'
-import { makeStyles } from '@material-ui/styles';
+import { toMMSS } from '@/utils'
+import { makeStyles } from '@material-ui/styles'
+import { useSnackbar } from 'notistack'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -26,8 +30,20 @@ const useStyles = makeStyles(() => ({
 
 function Commentary(props) {
   const classes = useStyles()
-  const { videoId } = props.state
   const { id, video_time } = props.data
+
+  const { enqueueSnackbar } = useSnackbar()
+
+  const [addVote, {
+    error: mutationError
+  }] = useMutation(ADD_VOTE)
+
+  const _sendVote = (vote) => {
+    addVote({variables: { input: { id, vote }}})
+    if (mutationError){
+      enqueueSnackbar(JSON.stringify(mutationError, null, 2), { variant: "error"})
+    }
+  }
   return (
     <Card className={classes.root}>
       <CardContent>
@@ -51,16 +67,16 @@ function Commentary(props) {
 
       <CardActions className={classes.cardAction}>
         <Typography color="primary" variant="caption" className={classes.leftActions}>
-          {props.data.num_vote_up	- props.data.num_vote_down}
+          {props.data.voteScore}
         </Typography>
-        {props.state.key !== undefined && <>
-          <IconButton onClick={() => props.actions.addVote(videoId, id, 1)} color="primary">
+        <>
+          <IconButton onClick={() => _sendVote('UP')} color="primary">
             <ThumbUp color="inherit" />
           </IconButton>
-          <IconButton onClick={() => props.actions.addVote(videoId, id, -1)} color="primary">
+          <IconButton onClick={() => _sendVote('DOWN')} color="primary">
             <ThumbDown color="inherit" />
           </IconButton>
-        </>}
+        </>
         
       </CardActions>
     </Card>
@@ -75,11 +91,8 @@ Commentary.propTypes = {
     author: PropTypes.shape({
       username: PropTypes.string.isRequired
     }),
-    num_vote_up: PropTypes.number.isRequired,
-    num_vote_down: PropTypes.number.isRequired,
+    voteScore: PropTypes.number.isRequired,
   }),
-  state: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired,
 }
 
-export default withContext(['videoId', 'key'],['addVote'])(Commentary)
+export default Commentary

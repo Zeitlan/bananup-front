@@ -3,122 +3,132 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { useMutation, useQuery } from '@apollo/react-hooks'
+import { ADD_VIDEO } from '@/queries/videos'
+import { ALL_CATEGORIES } from '@/queries/categories'
+
 import PropTypes from 'prop-types'
 import { FilledInput,FormControl, InputLabel, MenuItem, Select } from '@material-ui/core'
 import ModalTitleBox from '../modal/modal-title-box';
 import ModalBottomActions from '../modal/modal-bottom-actions';
-import { withContext } from '../../context'
 import YouTubePlayer from '../video-player/youtube-player';
-import { withSnackbar } from 'notistack'
+import { useSnackbar } from 'notistack'
 
 let rx = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|&v(?:i)?=))([^#&?]*).*/
 
-@withSnackbar
-@withContext(['categories'],['sendSharedVideo', 'getCategories'])
-class ShareForm extends React.Component {
+function ShareForm(props) {
 
-  state = {
+  const {data, error, loading} = useQuery(ALL_CATEGORIES)
+  let categories
+  if (!error && !loading)
+    categories = data.allCategories.results
+
+  const [input, inputSet] = React.useState({
     link: '',
     name: '',
     description: '',
-    category: undefined,
-  }
+    category: undefined
+  })
 
-  _getIdFromYouTubeVideo = () => {
-    let link = undefined
-    if (this.state.link) {
-      let matching = this.state.link.match(rx)
+  const { enqueueSnackbar } = useSnackbar()
+
+  const [addVideo, {
+    error: mutationError }
+  ] = useMutation(ADD_VIDEO)
+
+
+  const _getIdFromYouTubeVideo = (link) => {
+    let id = undefined
+    if (link) {
+      let matching = link.match(rx)
       if (matching) {
-        link = matching[1]
+        id = matching[1]
       }
     }
-    return link
+    return id
   }
 
-  _sendSharedVideo = () => {
-    const { actions: { sendSharedVideo } } = this.props
-    const { link, name, description , category } = this.state
-    let idVideo = this._getIdFromYouTubeVideo(link)
-    sendSharedVideo(idVideo, name, description , category).then((error) => {
-      if (error === undefined) {
-        this.props._closeModal()
+
+  const _sendSharedVideo = () => {
+    addVideo(
+      { variables: {
+        input: {
+          link: _getIdFromYouTubeVideo(input.link),
+          name: input.name,
+          description: input.description,
+          category: input.category
+        }
       }
-      else {
-          this.props.enqueueSnackbar(JSON.stringify(error, null, 2), { variant: "error"})
-      }
+    }
+    )
+    if (mutationError){
+      enqueueSnackbar(JSON.stringify(mutationError, null, 2), { variant: "error"})
+    }
+    else {
+      props._closeModal()
+    }
+  }
+
+  const _handleTextFieldChange = (e) => {
+    inputSet({
+      ...input,
+      [e.target.name]: e.target.value
     })
   }
 
-  _handleTextFieldChange = (e) => {
-    this.setState({
-        [e.target.name]: e.target.value
-    });
-  }
-
-  componentDidMount() {
-    const { actions: {getCategories}} = this.props
-    getCategories()
-  }
-  
-  render() {
-    let link = this._getIdFromYouTubeVideo(this.state.link)
-    const { state: {categories}} = this.props
-    return (
-        <CustomModal>
-            <ModalTitleBox title='Share a video' _closeModal={this.props._closeModal} />
-            <Content>
-                <p>Title</p>
-                <CustomTextField
-                    placeholder="Title"
-                    classes={{input: 'input'}}
-                    name="name"
-                    onChange={this._handleTextFieldChange}
-                />
-                <p>Like</p>
-                <CustomTextField
-                    placeholder="Video's link"
-                    classes={{input: 'input'}}
-                    name="link"
-                    onChange={this._handleTextFieldChange}
-                />
-                {link && <VideoPreview videoId={link}/>}
-                <p>Description</p>
-                <CustomTextField
-                    placeholder="Video's description"
-                    classes={{input: 'input'}}
-                    name="description"
-                    onChange={this._handleTextFieldChange}
-                />
-                <CustomFormControl>
-                  <InputLabel classes={{root: "select-label"}}>Category</InputLabel>
-                  <CustomSelect
-                    value={this.state.category}
-                    onChange={this._handleTextFieldChange}
-                    name="category"
-                    classes={{root: 'select-root'}}
-                    inputProps={{
-                        classes: {
-                            icon: 'icon',
-                            select: 'select'
-                        },
-                    }}
-                  >
-                    {categories && categories.map((category) => <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>)}
-                  </CustomSelect>
-                </CustomFormControl>
-            </Content>
-            <ModalBottomActions text='Share your video' action={this._sendSharedVideo}/>
-        </CustomModal>
+  let videoId = _getIdFromYouTubeVideo(input.link)
+  return (
+  <CustomModal>
+      <ModalTitleBox title='Share a video' _closeModal={props._closeModal} />
+      <Content>
+          <p>Title</p>
+          <CustomTextField
+              placeholder="Title"
+              classes={{input: 'input'}}
+              name="name"
+              onChange={_handleTextFieldChange}
+          />
+          <p>VideoId</p>
+          <CustomTextField
+              placeholder="Video's link"
+              classes={{input: 'input'}}
+              name="link"
+              onChange={_handleTextFieldChange}
+          />
+          {input.link && <VideoPreview videoId={videoId}/>}
+          <p>Description</p>
+          <CustomTextField
+              placeholder="Video's description"
+              classes={{input: 'input'}}
+              name="description"
+              onChange={_handleTextFieldChange}
+          />
+          <CustomFormControl>
+            <InputLabel classes={{root: "select-label"}}>Category</InputLabel>
+            <CustomSelect
+              value={input.category}
+              onChange={_handleTextFieldChange}
+              name="category"
+              classes={{root: 'select-root'}}
+              inputProps={{
+                  classes: {
+                      icon: 'icon',
+                      select: 'select'
+                  },
+              }}
+            >
+              {categories && categories.map((category) => <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>)}
+            </CustomSelect>
+          </CustomFormControl>
+      </Content>
+      <ModalBottomActions text='Share your video' action={_sendSharedVideo}/>
+  </CustomModal>
     )
   }
-}
 
 
 ShareForm.propTypes = {
-    actions: PropTypes.object.isRequired,
-    state: PropTypes.object.isRequired,
     _closeModal: PropTypes.func.isRequired,
-    enqueueSnackbar: PropTypes.func.isRequired
 }
 
 const CustomModal = styled.div`

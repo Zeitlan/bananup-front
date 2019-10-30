@@ -1,86 +1,97 @@
-/* eslint-disable no-console */
-/* eslint-disable jsx-a11y/alt-text */
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import PropTypes from 'prop-types'
 import { FilledInput } from '@material-ui/core'
 import ModalTitleBox from '../modal/modal-title-box';
 import ModalBottomActions from '../modal/modal-bottom-actions';
-import { withContext } from '../../context'
-import { withSnackbar } from 'notistack';
 
-@withSnackbar
-@withContext([],['login'])
-class LoginBody extends React.Component {
+import { useMutation } from 'react-apollo';
+import { LOGIN_MUTATION } from '@/queries/user';
 
-  state = {
-    email: '',
-    password: '',
-  }
+function LoginBody(props) {
 
-  _login = () => {
-    const { actions: { login } } = this.props
-    const { email, password } = this.state
-    login(email, password).then((error) => {
-      if (error === undefined) {
-        this.props._closeModal()
-      }
-      else {
-          this.props.enqueueSnackbar(JSON.stringify(error, null, 2), { variant: "error"})
-      }
+    const [input, inputSet] = useState({
+        username: '',
+        password: '',
     })
-  }
 
-  _handleTextFieldChange = (e) => {
-    this.setState({
-        [e.target.name]: e.target.value
+    const [error, errorSet] = useState([])
+
+    const [login] = useMutation(LOGIN_MUTATION, {
+        onCompleted: ({ loginUser }) => {
+            if (!loginUser.token) {
+                errorSet(loginUser.errors)
+            } else {
+                props._closeModal()
+            }
+        },
+        update: (cache, { data: { loginUser: { token } }}) => {
+            if (token)
+                localStorage.setItem('token', token)
+        },
     });
-  }
 
-  _handleKeyDown = (e ) => {
-      if (e.key === 'Enter'){
-          this._login()
-      }
-  }
-  render() {
+    const _login = () => {
+        login({variables : { input }})
+    }
+
+    const _handleTextFieldChange = (e) => {
+        inputSet({
+            ...input,
+            [e.target.name]: e.target.value,
+        });
+    }
+
+    const _handleKeyDown = (e ) => {
+        if (e.key === 'Enter'){
+            _login()
+        }
+    }
+
+    const _getErrorFromField = (field, errors) => {
+        let e = errors.find((e) => e.field === field)
+        return e ? <ErrorMessage>{e.messages[0]}</ErrorMessage> : undefined
+    }
+
     return (
         <CustomModal>
-            <ModalTitleBox title='Login' _closeModal={this.props._closeModal} />
-            <Content onKeyDown={this._handleKeyDown}>
-                <p>{"Email"}</p>
+            <ModalTitleBox title='Login' _closeModal={props._closeModal} />
+            <Content onKeyDown={_handleKeyDown}>
+                <p>{"Username"}</p>
                 <CustomTextField
-                    placeholder="Email"
+                    placeholder="Username"
                     classes={{input: 'input'}}
-                    type='email'
-                    name="email"
-                    onChange={this._handleTextFieldChange}
+                    name="username"
+                    value={input.username}
+                    onChange={_handleTextFieldChange}
                 />
+                {_getErrorFromField("username", error)}
                  <p>Password</p>
                 <CustomTextField
                     placeholder="Password"
                     classes={{input: 'input'}}
                     type='password'
                     name="password"
-                    onChange={this._handleTextFieldChange}
+                    value={input.password}
+                    onChange={_handleTextFieldChange}
                 />
+                {_getErrorFromField("password", error)}
+                {_getErrorFromField("", error)}
                 <SubFormActions>
                     <a>Forgotten password</a>
-                    <a onClick={this.props.goSignUp} className={'signup'}>{"Sign up"}</a>
+                    <a onClick={props.goSignUp} className={'signup'}>{"Sign up"}</a>
                 </SubFormActions>
             </Content>
-            <ModalBottomActions text='Login' action={this._login}/>
+            <ModalBottomActions text='Login' action={_login}/>
         </CustomModal>
     )
-  }
 }
 
 
 LoginBody.propTypes = {
-    actions: PropTypes.object.isRequired,
     _closeModal: PropTypes.func.isRequired,
     goSignUp: PropTypes.func.isRequired,
-    enqueueSnackbar: PropTypes.func.isRequired
 }
 
 const SubFormActions = styled.div`
@@ -95,6 +106,13 @@ const SubFormActions = styled.div`
         margin-left: auto;
     }
 `
+
+
+const ErrorMessage = styled.label`
+    font-size: 12px;
+    color: #e84e4e;
+` 
+
 const CustomModal = styled.div`
     outline: none;
     position: absolute;

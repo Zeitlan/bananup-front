@@ -1,29 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { Link } from '@reach/router'
-class Category extends React.Component {
-  state = {
-    hover: false
-  }
-  render() {
-    const { category } = this.props
-    return (
-        <Container onMouseEnter={() => this.setState({hover: true})} onMouseLeave={() => this.setState({hover: false})}>
-            <Link to={"/categorie/"+category.id}>
-              <ImgContainer hover={this.state.hover} src={category.image_url}/>
-            </Link>
-            <CategoryDescription>
-              <div className={"category-information"}>
-                <CustomCaption>
-                  <div>{category.name}</div>
-                  <div className={"category-subinfo"}>{category.videos_count} vidéos</div>
-                </CustomCaption>
-              </div>
-            </CategoryDescription>
-        </Container>
-    )
-  }
+
+function Category(props) {
+  const [hover, hoverSet] = useState(false)
+  const { category } = props
+  return (
+      <Container onMouseEnter={() => hoverSet(true)} onMouseLeave={() => hoverSet(false)}>
+          <Link to={"/categorie/"+category.id}>
+            <ImgContainer hover={hover} src={category.imageUrl}/>
+          </Link>
+          <CategoryDescription>
+            <div className={"category-information"}>
+              <CustomCaption>
+                <div>{category.name}</div>
+                <div className={"category-subinfo"}>{category.videoCount} vidéo{category.videoCount > 1 ? 's' : ''}</div>
+              </CustomCaption>
+            </div>
+          </CategoryDescription>
+      </Container>
+  )
 }
 
 // PropTypes

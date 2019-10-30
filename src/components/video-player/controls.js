@@ -2,17 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-class Controls extends React.Component {
-    
-  render() {
+function Controls(props) {
     return (
         <Container >
             <ControlContainer>
             </ControlContainer>
-            {this.props.children}
+            {props.children}
         </Container>
     )
-  }
 }
 
 // PropTypes

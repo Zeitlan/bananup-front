@@ -5,8 +5,7 @@ import upload from './upload.png'
 import customer from './customer.png'
 import improvement from './improvement.png'
 import esportBackground from './esport-background.jpg'
-class Pitch extends React.Component {
-  render() {
+function Pitch() {
     return (
         <Container>
             <BackgroundContainer>
@@ -34,7 +33,6 @@ class Pitch extends React.Component {
             </PitchRow>
         </Container>
     )
-  }
 }
 
 const BackgroundContainer = styled.div`

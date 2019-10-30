@@ -2,63 +2,26 @@ import React from 'react'
 import styled from 'styled-components'
 import VideoList from './video-list'
 
-class VideoListPreview extends React.Component {
+import { VIDEO_PREVIEW } from '@/queries/videos'
+import { useQuery } from 'react-apollo';
 
-    state = {
-        videos: [
-            {
-                author: 2,
-                category: 1,
-                created_at: "2019-06-27T19:52:51.676926Z",
-                id: 1,
-                link: "iE2wwzM0p68",
-                name: "World of Warcraft",
-                url: "http://127.0.0.1:8000/videos/1/",
-                views: 0
-            },
-            {
-                author: 2,
-                category: 1,
-                created_at: "2019-06-27T19:52:51.676926Z",
-                id: 1,
-                link: "iE2wwzM0p68",
-                name: "World of Warcraft",
-                url: "http://127.0.0.1:8000/videos/1/",
-                views: 0
-            },
-            {
-                author: 2,
-                category: 1,
-                created_at: "2019-06-27T19:52:51.676926Z",
-                id: 1,
-                link: "iE2wwzM0p68",
-                name: "World of Warcraft",
-                url: "http://127.0.0.1:8000/videos/1/",
-                views: 0
-            },
-            {
-                author: 2,
-                category: 1,
-                created_at: "2019-06-27T19:52:51.676926Z",
-                id: 1,
-                link: "iE2wwzM0p68",
-                name: "World of Warcraft",
-                url: "http://127.0.0.1:8000/videos/1/",
-                views: 0
-            },
-        ]
-    }
-  render() {
+function VideoListPreview() {
+
+  
+    const { loading, error, data } = useQuery(VIDEO_PREVIEW);
+  
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
+
     return (
         <Container>
             <TopRow>
                 <CustomTitle>Recent videos</CustomTitle>
                 <More href="...">More..</More>
             </TopRow>
-            <VideoList videos={this.state.videos}/>
+            <VideoList videos={data.allVideos.results.splice(0, 6)}/>
         </Container>
     )
-  }
 }
 
 // PropTypes

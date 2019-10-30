@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, {useState, useEffect} from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from "@material-ui/core/styles";
 import YoutubePlayer from '../components/video-player/youtube-player'
 import Comments from '../components/feedbacks/commentary/commentaries'
 import AddComment from '../components/feedbacks/commentary/add-commentary'
-import { withContext } from '../context'
-
+import { useQuery } from 'react-apollo';
+import { GET_VIDEO_INFO } from '@/queries/videos'
 const useStyles = makeStyles(theme => ({
   root: {
     marginBottom: 20,
@@ -34,24 +34,21 @@ const useStyles = makeStyles(theme => ({
 function Video(props) {
   const { videoId } = props
   const classes = useStyles()
-  const [video, videoSet] = useState(undefined);
-  const [comments, commentsSet] = useState(undefined);
-  const updateComments = () => {
-    const { actions: { getVideoComments }} = props
-    getVideoComments(videoId).then(response => commentsSet(response))
-  }
-  useEffect(() => {
-    if (!video) {
-      const { actions: { getVideoInformation }} = props
-      getVideoInformation(videoId).then((json) => {
-        videoSet(json)
-      })
-    }
-    if (!comments){
-      updateComments()
-      console.log(videoId)
-    }
-  }, []);
+  const [ytPlayer, setYtPlayer] = useState(undefined)
+
+  
+  const { loading, error, data } = useQuery(GET_VIDEO_INFO, {
+    variables: { id: videoId }
+  });
+
+
+  const connected = localStorage.getItem('token') != undefined
+  
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
+
+  const { video } = data
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
@@ -59,16 +56,16 @@ function Video(props) {
           <Grid container>
             <Grid item xs={12} lg={12}>
               <div className={classes.videoContainer}>
-                {video && <YoutubePlayer className={classes.video} videoId={video.link} />}
+                <YoutubePlayer className={classes.video} videoId={video.link} setYtPlayer={setYtPlayer} />
               </div>
             </Grid>
             <Grid item xs={12} lg={12}>
-              {props.state.key && video && <AddComment className={classes.addComment} videoId={video.id} updateComments={updateComments}/>}
+              {connected && <AddComment className={classes.addComment} videoId={video.id} ytPlayer={ytPlayer}/>}
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={12} lg={4}>
-          <Comments comments={comments ? comments : []}/>
+          <Comments videoId={videoId}/>
         </Grid>
       </Grid>
     </div>
@@ -78,8 +75,6 @@ function Video(props) {
 // PropTypes
 Video.propTypes = {
   videoId: PropTypes.string,
-  state: PropTypes.object,
-  actions: PropTypes.object,
 }
 
-export default withContext(['key' ],['getVideoInformation', 'getVideoComments'])(Video)
+export default Video
