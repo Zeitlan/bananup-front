@@ -6,9 +6,6 @@ export const SIGNUP_MUTATION = gql`
     registerUser(input: $input) {
       user {
         username
-        email
-        isStaff
-        isSuperuser
       }
       errors {
         messages
