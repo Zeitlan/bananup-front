@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import { Typography, Toolbar, AppBar, Button, IconButton } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { AddToQueue, ExitToApp, Menu } from '@material-ui/icons';
+import { AddToQueue, ExitToApp } from '@material-ui/icons';
+import { Link } from '@reach/router'
 import LoginModal from '../login'
-import PropTypes from 'prop-types'
 import ShareVideoModal from '../share-video';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
-    height: 64
+    minHeight: 48,
   },
-  appBar: {
-    marginLeft: 180,
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${180}px)`,
-    },
+  customToolbar: {
+    minHeight: 48,
+  },
+  logo: {
+    marginRight: 50,
   },
   menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
+    marginLeft: 20,
+    textDecoration: 'none',
+    color: 'white',
+    marginRight: 20,
   },
   leftAligned: {
     marginLeft: 'auto',
@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function NavigationBar(props) {
+function NavigationBar() {
   const classes = useStyles();
   const [openLogin, setOpenLogin] = useState(false);
   const [openShareVideo, setOpenShareVideo] = useState(false);
@@ -47,20 +47,17 @@ function NavigationBar(props) {
   },[openLogin])
 
   return (
-      <AppBar className={classes.root} position="fixed" color="primary">
-      <Toolbar>
-        <IconButton
-            color="inherit"
-            aria-label="Open drawer"
-            edge="start"
-            onClick={() => props.drawerToggle()}
-            className={classes.menuButton}
-          >
-            <Menu />
-        </IconButton>
-        <Typography variant="h6" color="inherit" noWrap>
+    <AppBar className={classes.root} position="fixed" color="secondary">
+      <Toolbar className={classes.customToolbar}>
+        <Typography variant="h6" color="primary" noWrap className={classes.logo}>
           Bananup
         </Typography>
+        <Link to="/" className={classes.menuButton}>
+            Accueil
+        </Link>
+        <Link to="/categories" className={classes.menuButton}>
+            Parcourir
+        </Link>
         <div className={classes.leftAligned} >
           {connected ?
             <div>
@@ -83,10 +80,5 @@ function NavigationBar(props) {
     </AppBar>
   )
 }
-
-NavigationBar.propTypes = {
-    drawerToggle: PropTypes.func.isRequired,
-}
-
 
 export default NavigationBar

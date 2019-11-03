@@ -38,7 +38,7 @@ function Pitch() {
 const BackgroundContainer = styled.div`
     background: linear-gradient(
                 rgba(240, 100, 13, 0.30), 
-                rgba(48, 48, 48, 1)
+                rgba(32, 32, 32, 1)
                 ),url(${esportBackground});
     background-size: cover;
     background-position: center;

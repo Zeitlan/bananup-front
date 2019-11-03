@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import Grid from '@material-ui/core/Grid'
 import { makeStyles } from "@material-ui/core/styles";
 import YoutubePlayer from '../components/video-player/youtube-player'
 import Comments from '../components/feedbacks/commentary/commentaries'
 import AddComment from '../components/feedbacks/commentary/add-commentary'
+import Controls from '@/components/video-player/controls.js'
 import { useQuery } from 'react-apollo';
 import { GET_VIDEO_INFO } from '@/queries/videos'
+
 const useStyles = makeStyles(theme => ({
   root: {
     marginBottom: 20,
@@ -17,7 +18,13 @@ const useStyles = makeStyles(theme => ({
   },
   videoContainer: {
     position: 'relative',
-    paddingTop: '56.25%!important',
+    paddingTop: '50.25%!important',
+    width:'80%',
+    margin: 'auto',
+  },
+  playerContainer: {
+    width: '80%',
+    margin: 'auto',
   },
   video: {
     position: 'absolute',
@@ -51,23 +58,16 @@ function Video(props) {
   const { video } = data
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} lg={8}>
-          <Grid container>
-            <Grid item xs={12} lg={12}>
-              <div className={classes.videoContainer}>
-                <YoutubePlayer className={classes.video} videoId={video.link} setYtPlayer={setYtPlayer} />
-              </div>
-            </Grid>
-            <Grid item xs={12} lg={12}>
-              {connected && <AddComment className={classes.addComment} videoId={video.id} ytPlayer={ytPlayer}/>}
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={12} lg={4}>
-          <Comments videoId={videoId}/>
-        </Grid>
-      </Grid>
+      <div className={classes.videoContainer}>
+        <div className={classes.playerContainer}>
+          <YoutubePlayer className={classes.video} videoId={video.link} setYtPlayer={setYtPlayer} ytPlayer={ytPlayer}/>
+        </div>
+      </div>
+      <div className={classes.playerContainer}>
+        <Controls ytPlayer={ytPlayer}/>
+      </div>
+      {connected && <AddComment className={classes.addComment} videoId={video.id} ytPlayer={ytPlayer}/>}
+      <Comments videoId={videoId}/>
     </div>
   )
 }
